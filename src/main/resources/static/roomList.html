@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Rooms Management - The Curator</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@400;500;600&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#0a0500",
+              "on-secondary-container": "#672c00",
+              "on-secondary": "#ffffff",
+              "tertiary-container": "#2a1c00",
+              "error-container": "#ffdad6",
+              "tertiary-fixed": "#ffdea4",
+              "on-secondary-fixed": "#331200",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#ffdbc9",
+              "surface-tint": "#4d5f7d",
+              "surface-variant": "#e0e3e6",
+              "surface-container-low": "#f2f4f7",
+              "on-surface-variant": "#44474d",
+              "background": "#f7f9fc",
+              "on-primary-fixed-variant": "#364764",
+              "secondary-container": "#fc8a40",
+              "primary-fixed": "#d6e3ff",
+              "primary": "#000615",
+              "outline": "#75777e",
+              "secondary-fixed-dim": "#ffb68d",
+              "tertiary-fixed-dim": "#f4be4e",
+              "inverse-on-surface": "#eff1f4",
+              "secondary": "#9b4500",
+              "on-primary-container": "#7587a7",
+              "outline-variant": "#c4c6ce",
+              "surface-dim": "#d8dadd",
+              "on-secondary-fixed-variant": "#763300",
+              "on-error": "#ffffff",
+              "surface-bright": "#f7f9fc",
+              "on-tertiary": "#ffffff",
+              "inverse-primary": "#b5c7ea",
+              "surface-container": "#eceef1",
+              "inverse-surface": "#2d3133",
+              "primary-fixed-dim": "#b5c7ea",
+              "surface-container-highest": "#e0e3e6",
+              "on-tertiary-fixed-variant": "#5d4200",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed": "#261900",
+              "on-tertiary-container": "#ad7f0b",
+              "error": "#ba1a1a",
+              "surface-container-high": "#e6e8eb",
+              "on-surface": "#191c1e",
+              "primary-container": "#0b1f3a",
+              "on-primary-fixed": "#071c36",
+              "on-background": "#191c1e",
+              "surface": "#f7f9fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Public Sans"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+    <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- Sidebar (Desktop Only) -->
+<aside class="hidden md:flex fixed inset-y-0 left-0 z-50 flex-col p-4 bg-surface-container-low text-primary-container font-body font-medium text-sm rounded-r-3xl h-full w-72 shadow-2xl shadow-primary-container/10">
+    <div class="mb-10 px-4">
+        <span class="font-headline font-bold text-primary dark:text-slate-50 text-xl tracking-tight">The Curator</span>
+    </div>
+    <nav class="flex-1 flex flex-col gap-2">
+        <a class="flex items-center gap-4 text-on-surface-variant p-4 hover:bg-white/50 transition-transform active:translate-x-1" href="#">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            Dashboard
+        </a>
+        <a class="flex items-center gap-4 text-on-surface-variant p-4 hover:bg-white/50 transition-transform active:translate-x-1" href="#">
+            <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+            Assets
+        </a>
+        <a class="flex items-center gap-4 bg-surface-container-lowest text-primary rounded-xl p-4 shadow-sm transition-transform active:translate-x-1" href="#">
+            <span class="material-symbols-outlined active-nav-icon" data-icon="meeting_room" style="font-variation-settings: 'FILL' 1;">meeting_room</span>
+            Rooms
+        </a>
+        <a class="flex items-center gap-4 text-on-surface-variant p-4 hover:bg-white/50 transition-transform active:translate-x-1" href="#">
+            <span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+            Assignments
+        </a>
+    </nav>
+    <div class="mt-auto p-4 flex items-center gap-4 bg-surface-container-high rounded-2xl">
+        <img alt="Admin" class="w-10 h-10 rounded-full bg-primary-container" data-alt="Portrait of a school administrator professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ48Hzk9WUauFSWHQ3omblvAPydmsiU0C6Rdgrqgyek6eKSxHzxNrySEKIQclpQM-HvsnpCELLBQDEavR7n48pikdWLsl1eIAmmwOfWEy6KwpC0ClvuaWF_HietCVB0l8iNgE2tx0m_F8LAfDj9RU53hFlJJmmMkRxnJP5wpPYlsjE8M6ZRS4nkwmBkh51b-SXYz0FN0BiHqdrKgmgz2qI-eY--1yqLtyCk4zMHP_C0FVuSIBIYSpThptf0rbBQCGOL5lgqERqPZA"/>
+        <div>
+            <p class="font-headline font-bold text-primary text-sm">Academic Curator</p>
+            <p class="text-xs text-on-surface-variant">Institutional Admin</p>
+        </div>
+    </div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-72 min-h-screen pb-24 md:pb-8">
+    <!-- TopAppBar -->
+    <header class="flex justify-between items-center px-6 py-4 w-full sticky top-0 bg-background/80 backdrop-blur-md z-40">
+        <div class="flex items-center gap-4">
+            <button class="md:hidden text-primary hover:opacity-80 active:scale-95 duration-200">
+                <span class="material-symbols-outlined" data-icon="menu">menu</span>
+            </button>
+            <h1 class="font-headline font-bold text-2xl tracking-tight text-primary">Rooms</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden sm:flex bg-surface-container-high rounded-full px-4 py-2 items-center gap-2">
+                <span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="search">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-body" placeholder="Search rooms..." type="text"/>
+            </div>
+            <img alt="Avatar" class="w-10 h-10 rounded-full border-2 border-surface-container-highest" data-alt="Small circular profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBicfxJgmXRmwE4QBo4rXm9B2kf0arULVdm5jVRx8coDqDUvO8zXvaHTvavjHgZrFA0m6FaoHOBsD3_Jav1bd63A1elnIAODuGvlaE3p20Hx-3fmH8C1Z3PwHfWCsLVMbwDR19vYZdJohO24Z2uQ3tUU1wXZsVbCb4yV_srgjTb3eWHAyxYyJqS4H-GEr4uuhpV_yMuwj15tfuOU3e1rvOwtYpBFCSM7TGEjyi0TrHmMSGBidrp91mXSZqOQFe2FVjBzsmFtmccPHQ"/>
+        </div>
+    </header>
+    <div class="px-6 space-y-8">
+        <!-- Hero Stats / Bento Grid Start -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-2 border-l-4 border-secondary">
+                <p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Total Rooms</p>
+                <p class="font-headline font-black text-4xl text-primary">42</p>
+                <div class="flex items-center gap-2 text-secondary text-xs font-bold">
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span>
+                    <span>2 NEW THIS SEMESTER</span>
+                </div>
+            </div>
+            <div class="bg-primary-container p-6 rounded-xl shadow-sm space-y-2 relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-on-primary-container font-label text-xs uppercase tracking-widest">Asset Density</p>
+                    <p class="font-headline font-black text-4xl text-on-primary">88%</p>
+                    <p class="text-on-primary-container text-xs">Average Capacity Utilization</p>
+                </div>
+                <div class="absolute right-[-10px] bottom-[-10px] opacity-10">
+                    <span class="material-symbols-outlined text-9xl text-white" data-icon="pie_chart">pie_chart</span>
+                </div>
+            </div>
+            <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-2 border-l-4 border-tertiary-fixed-dim">
+                <p class="text-on-surface-variant font-label text-xs uppercase tracking-widest">Maintenance</p>
+                <p class="font-headline font-black text-4xl text-primary">03</p>
+                <p class="text-on-surface-variant text-xs">Rooms pending inspection</p>
+            </div>
+        </section>
+        <!-- Rooms List -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h2 class="font-headline font-bold text-xl text-primary">All Facilities</h2>
+                    <p class="text-on-surface-variant text-sm">Manage inventory and capacity per room.</p>
+                </div>
+                <button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-full font-label text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all">
+                    Add New Room
+                </button>
+            </div>
+            <div class="space-y-4">
+                <!-- Room Item 1 -->
+                <div class="bg-surface-container-lowest p-5 md:p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-xl hover:shadow-primary-container/5">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-primary-container shrink-0">
+                            <span class="material-symbols-outlined text-3xl" data-icon="computer">computer</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-lg text-primary">Advanced Computing Lab</h3>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
+                                        Computer Lab
+                                    </span>
+                                <span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="group">group</span>
+                                        Capacity: 35
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-none pt-4 md:pt-0 border-surface-container-high">
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                <div class="bg-error h-full w-[100%] rounded-full"></div>
+                            </div>
+                            <span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">At Capacity</span>
+                        </div>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Room Item 2 -->
+                <div class="bg-surface-container-lowest p-5 md:p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-xl hover:shadow-primary-container/5">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-primary-container shrink-0">
+                            <span class="material-symbols-outlined text-3xl" data-icon="science">science</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-lg text-primary">General Chemistry Hall</h3>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
+                                        Science Lab
+                                    </span>
+                                <span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="group">group</span>
+                                        Capacity: 28
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-none pt-4 md:pt-0 border-surface-container-high">
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                <div class="bg-secondary-container h-full w-[65%] rounded-full"></div>
+                            </div>
+                            <span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">10 Slots Available</span>
+                        </div>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Room Item 3 -->
+                <div class="bg-surface-container-lowest p-5 md:p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-xl hover:shadow-primary-container/5">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-primary-container shrink-0">
+                            <span class="material-symbols-outlined text-3xl" data-icon="school">school</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-lg text-primary">Main Auditorium A1</h3>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
+                                        Lecture Theater
+                                    </span>
+                                <span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="group">group</span>
+                                        Capacity: 120
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-none pt-4 md:pt-0 border-surface-container-high">
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                <div class="bg-tertiary-fixed-dim h-full w-[30%] rounded-full"></div>
+                            </div>
+                            <span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">Open Access</span>
+                        </div>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Room Item 4 -->
+                <div class="bg-surface-container-lowest p-5 md:p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-xl hover:shadow-primary-container/5">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-primary-container shrink-0">
+                            <span class="material-symbols-outlined text-3xl" data-icon="language">language</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-lg text-primary">Language Resource Center</h3>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
+                                        Specialized Lab
+                                    </span>
+                                <span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="group">group</span>
+                                        Capacity: 20
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-none pt-4 md:pt-0 border-surface-container-high">
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                <div class="bg-error h-full w-[100%] rounded-full"></div>
+                            </div>
+                            <span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">At Capacity</span>
+                        </div>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-12px_40px_rgba(7,28,54,0.06)] rounded-t-3xl">
+    <a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary active:scale-90 transition-all" href="#">
+        <span class="material-symbols-outlined" data-icon="home">home</span>
+        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Home</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary active:scale-90 transition-all" href="#">
+        <span class="material-symbols-outlined" data-icon="category">category</span>
+        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Assets</span>
+    </a>
+    <a class="flex flex-col items-center justify-center bg-primary-container text-white rounded-2xl p-3 shadow-lg shadow-primary-container/20 active:scale-90 transition-all" href="#">
+        <span class="material-symbols-outlined active-nav-icon" data-icon="door_front" style="font-variation-settings: 'FILL' 1;">door_front</span>
+        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Rooms</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary active:scale-90 transition-all" href="#">
+        <span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Tasks</span>
+    </a>
+</nav>
+<!-- FAB (Mobile Only Contextual Action) -->
+<button class="fixed right-6 bottom-24 md:hidden w-14 h-14 bg-secondary text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform">
+    <span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

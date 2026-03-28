@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Asset Assignment - The Curator</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@400;500;600&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#0a0500",
+                        "on-secondary-container": "#672c00",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#2a1c00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdea4",
+                        "on-secondary-fixed": "#331200",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdbc9",
+                        "surface-tint": "#4d5f7d",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container-low": "#f2f4f7",
+                        "on-surface-variant": "#44474d",
+                        "background": "#f7f9fc",
+                        "on-primary-fixed-variant": "#364764",
+                        "secondary-container": "#fc8a40",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#000615",
+                        "outline": "#75777e",
+                        "secondary-fixed-dim": "#ffb68d",
+                        "tertiary-fixed-dim": "#f4be4e",
+                        "inverse-on-surface": "#eff1f4",
+                        "secondary": "#9b4500",
+                        "on-primary-container": "#7587a7",
+                        "outline-variant": "#c4c6ce",
+                        "surface-dim": "#d8dadd",
+                        "on-secondary-fixed-variant": "#763300",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f7f9fc",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b5c7ea",
+                        "surface-container": "#eceef1",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed-dim": "#b5c7ea",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#261900",
+                        "on-tertiary-container": "#ad7f0b",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8eb",
+                        "on-surface": "#191c1e",
+                        "primary-container": "#0b1f3a",
+                        "on-primary-fixed": "#071c36",
+                        "on-background": "#191c1e",
+                        "surface": "#f7f9fc"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Public Sans"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .form-input-focus:focus {
+            box-shadow: 0 0 0 2px rgba(11, 31, 58, 0.04);
+            border-color: rgba(0, 6, 21, 0.2);
+            outline: none;
+        }
+    </style>
+    <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-[#f7f9fc] dark:bg-slate-950 flex justify-between items-center px-6 py-4 w-full sticky top-0 z-40">
+    <div class="flex items-center gap-4">
+        <button class="material-symbols-outlined text-[#000615] dark:text-slate-50 hover:opacity-80 transition-opacity Active: scale-95 duration-200">menu</button>
+        <h1 class="font-manrope font-black text-[#000615] dark:text-slate-50 uppercase tracking-widest text-xl">The Curator</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <div class="hidden md:flex gap-6 items-center mr-8">
+            <a class="font-public-sans font-medium text-sm text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity" href="#">Dashboard</a>
+            <a class="font-public-sans font-medium text-sm text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity" href="#">Assets</a>
+            <a class="font-public-sans font-medium text-sm text-slate-500 dark:text-slate-400 hover:opacity-80 transition-opacity" href="#">Rooms</a>
+            <a class="font-public-sans font-medium text-sm text-[#000615] dark:text-slate-50 hover:opacity-80 transition-opacity" href="#">Assignments</a>
+        </div>
+        <img alt="Administrator Profile" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="Administrator user profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByc1nHeesXUBLoa2HwPJR18AOMJYdmOBkwAuRwNuOxNmPJlXI_K8bOlAcvfUm3n7GvVpHuOsU53wsrjG46EteWC6KyJbTsjEYJAc35ghgfDfwfwDd10BXibjn02_9cbtvyn9vb1mR3Ps89bpyrfC1VidWMDjWDwxPn-dU47M8s_Hl5p-B4TMZuYKerUYhg7xzr5-bfUMZ1kMTnTBy_SQ3WDrF4Md-WP7Whhj6ZV8YBjdTyYwwFLIgNHf5FTosF2eENJS0cQCeSH6k"/>
+    </div>
+</header>
+<div class="flex min-h-screen">
+    <!-- NavigationDrawer (Desktop) -->
+    <aside class="hidden lg:flex fixed inset-y-0 left-0 z-50 flex flex-col p-4 bg-[#f2f4f7] dark:bg-slate-900 rounded-r-3xl h-full w-72 shadow-2xl shadow-blue-900/10 mt-20">
+        <div class="flex flex-col p-4 mb-6">
+            <div class="flex items-center gap-3 mb-4">
+                <img alt="Admin User" class="w-10 h-10 rounded-xl bg-primary-container text-white flex items-center justify-center font-bold" data-alt="Institutional admin profile picture placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYFRuEwe2fDGvLqkjwR2BKDNx9Mf4ZYNvvst50AbHc7C1nZikeXhq2fek0QYfUNLuTg-JGw1e97-wrnm9_bk_04f5y-f-HP5c8z9LpWUfjoQqFSDeA6NCatHln0w7TNCMugvmV7DgYagqgzj_o9MG9QjPoOqKL4i08KhvII45xOJKI0irEi6gNtnyhQG34mtgigDkpwyiB2f9s1PTVE-O87WwpMxD_SpgLIA74PXlTsK620ftqdy-oqBsuDiI8b0CQqzpBMcTm-58"/>
+                <div>
+                    <p class="font-manrope font-bold text-[#000615] dark:text-slate-50 text-sm">Academic Curator</p>
+                    <p class="font-public-sans text-xs text-on-surface-variant">Institutional Admin</p>
+                </div>
+            </div>
+        </div>
+        <nav class="space-y-2">
+            <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all rounded-xl font-public-sans font-medium text-sm" href="#">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all rounded-xl font-public-sans font-medium text-sm" href="#">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Assets
+            </a>
+            <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all rounded-xl font-public-sans font-medium text-sm" href="#">
+                <span class="material-symbols-outlined">meeting_room</span>
+                Rooms
+            </a>
+            <a class="flex items-center gap-4 bg-white dark:bg-slate-800 text-[#000615] dark:text-white rounded-xl p-4 shadow-sm font-public-sans font-medium text-sm translate-x-1 transition-transform" href="#">
+                <span class="material-symbols-outlined">assignment_ind</span>
+                Assignments
+            </a>
+        </nav>
+        <div class="mt-auto p-4">
+            <p class="text-[10px] font-label text-slate-400 uppercase tracking-widest">v1.0.4</p>
+        </div>
+    </aside>
+    <!-- Main Content Canvas -->
+    <main class="flex-1 lg:ml-72 p-6 md:p-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section (Editorial Style) -->
+            <header class="mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-wider mb-4">
+                    <span class="material-symbols-outlined text-xs">edit_note</span>
+                    Curation Process
+                </div>
+                <h2 class="font-manrope font-extrabold text-4xl md:text-5xl text-primary tracking-tight mb-4">Asset Assignment</h2>
+                <p class="font-public-sans text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+                    Formally relocate institutional assets to designated campus environments. Ensure all archival records are updated for real-time tracking.
+                </p>
+            </header>
+            <!-- Form Container (Layered Depth) -->
+            <div class="bg-surface-container-lowest rounded-3xl p-8 md:p-10 shadow-[0_12px_40px_rgba(7,28,54,0.06)]">
+                <form class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Select Asset -->
+                        <div class="space-y-2">
+                            <label class="block font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">Select Asset</label>
+                            <div class="relative">
+                                <select class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 font-public-sans text-on-surface appearance-none focus:ring-2 focus:ring-primary/5 transition-all cursor-pointer">
+                                    <option disabled="" selected="" value="">Search institutional assets...</option>
+                                    <option>MacBook Pro 16" (SN: ED-2023-001)</option>
+                                    <option>Yamaha Grand Piano (SN: MU-1994-A2)</option>
+                                    <option>Dell UltraSharp Monitor (SN: DS-4422-B)</option>
+                                    <option>Science Lab Microscope (SN: LB-9912-Z)</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">unfold_more</span>
+                            </div>
+                        </div>
+                        <!-- Select Room -->
+                        <div class="space-y-2">
+                            <label class="block font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">Select Room</label>
+                            <div class="relative">
+                                <select class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 font-public-sans text-on-surface appearance-none focus:ring-2 focus:ring-primary/5 transition-all cursor-pointer">
+                                    <option disabled="" selected="" value="">Assign to location...</option>
+                                    <option>Main Library - Reading Room A</option>
+                                    <option>Science Block - Lab 402</option>
+                                    <option>Music Conservatory - Hall 1</option>
+                                    <option>Administrative Office - Level 2</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">location_on</span>
+                            </div>
+                        </div>
+                        <!-- Assignment Date -->
+                        <div class="space-y-2">
+                            <label class="block font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">Assignment Date</label>
+                            <div class="relative">
+                                <input class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 font-public-sans text-on-surface focus:ring-2 focus:ring-primary/5 transition-all" type="date" value="2023-10-27"/>
+                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">calendar_today</span>
+                            </div>
+                        </div>
+                        <!-- Visual Reference (Bento-style Decorative Card) -->
+                        <div class="hidden md:flex flex-col justify-center items-center bg-surface-container-low rounded-xl p-4 border border-dashed border-outline-variant/30">
+                            <span class="material-symbols-outlined text-4xl text-on-primary-container mb-2">inventory</span>
+                            <p class="text-xs font-public-sans text-center text-on-surface-variant px-4">Selected asset preview and current location status will appear here upon selection.</p>
+                        </div>
+                    </div>
+                    <!-- Notes/Comments -->
+                    <div class="space-y-2">
+                        <label class="block font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant ml-1">Curation Notes</label>
+                        <textarea class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 font-public-sans text-on-surface focus:ring-2 focus:ring-primary/5 transition-all resize-none" placeholder="Describe the reason for assignment or any specific handling instructions..." rows="4"></textarea>
+                    </div>
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row items-center justify-end gap-4 pt-4">
+                        <button class="w-full sm:w-auto px-8 py-4 font-label font-bold text-[10px] uppercase tracking-widest text-on-surface hover:bg-surface-container-highest rounded-full transition-all" type="button">
+                            Cancel
+                        </button>
+                        <button class="w-full sm:w-auto px-10 py-4 bg-gradient-to-br from-primary to-primary-container font-label font-bold text-[10px] uppercase tracking-widest text-white rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                            Confirm Assignment
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Footer Metadata -->
+            <footer class="mt-8 flex justify-between items-center px-4">
+                <p class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Authored by Academic Curator</p>
+                <div class="flex gap-4">
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm cursor-help">help_outline</span>
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm cursor-help">info</span>
+                </div>
+            </footer>
+        </div>
+    </main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-12px_40px_rgba(7,28,54,0.06)] rounded-t-3xl">
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-[#0b1f3a] dark:hover:text-blue-300 transition-all active:scale-90" href="#">
+        <span class="material-symbols-outlined">home</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Home</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-[#0b1f3a] dark:hover:text-blue-300 transition-all active:scale-90" href="#">
+        <span class="material-symbols-outlined">category</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Assets</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-[#0b1f3a] dark:hover:text-blue-300 transition-all active:scale-90" href="#">
+        <span class="material-symbols-outlined">door_front</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Rooms</span>
+    </a>
+    <a class="flex flex-col items-center justify-center bg-[#0b1f3a] text-white rounded-2xl p-3 active:scale-90 transition-all" href="#">
+        <span class="material-symbols-outlined">task_alt</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Tasks</span>
+    </a>
+</nav>
+</body></html>

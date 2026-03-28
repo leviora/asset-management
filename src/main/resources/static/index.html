@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Academic Curator | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@400;500;600&amp;family=Inter:wght@400;600;700&amp;display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+          rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-lowest": "#ffffff",
+                "tertiary": "#0a0500",
+                "on-secondary-container": "#672c00",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#2a1c00",
+                "error-container": "#ffdad6",
+                "tertiary-fixed": "#ffdea4",
+                "on-secondary-fixed": "#331200",
+                "on-error-container": "#93000a",
+                "secondary-fixed": "#ffdbc9",
+                "surface-tint": "#4d5f7d",
+                "surface-variant": "#e0e3e6",
+                "surface-container-low": "#f2f4f7",
+                "on-surface-variant": "#44474d",
+                "background": "#f7f9fc",
+                "on-primary-fixed-variant": "#364764",
+                "secondary-container": "#fc8a40",
+                "primary-fixed": "#d6e3ff",
+                "primary": "#000615",
+                "outline": "#75777e",
+                "secondary-fixed-dim": "#ffb68d",
+                "tertiary-fixed-dim": "#f4be4e",
+                "inverse-on-surface": "#eff1f4",
+                "secondary": "#9b4500",
+                "on-primary-container": "#7587a7",
+                "outline-variant": "#c4c6ce",
+                "surface-dim": "#d8dadd",
+                "on-secondary-fixed-variant": "#763300",
+                "on-error": "#ffffff",
+                "surface-bright": "#f7f9fc",
+                "on-tertiary": "#ffffff",
+                "inverse-primary": "#b5c7ea",
+                "surface-container": "#eceef1",
+                "inverse-surface": "#2d3133",
+                "primary-fixed-dim": "#b5c7ea",
+                "surface-container-highest": "#e0e3e6",
+                "on-tertiary-fixed-variant": "#5d4200",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed": "#261900",
+                "on-tertiary-container": "#ad7f0b",
+                "error": "#ba1a1a",
+                "surface-container-high": "#e6e8eb",
+                "on-surface": "#191c1e",
+                "primary-container": "#0b1f3a",
+                "on-primary-fixed": "#071c36",
+                "on-background": "#191c1e",
+                "surface": "#f7f9fc"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Public Sans"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+    </style>
+    <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="fixed inset-y-0 left-0 z-50 flex flex-col p-4 bg-surface-container-low dark:bg-slate-900 rounded-r-3xl h-full w-72 shadow-2xl shadow-primary-container/10 hidden md:flex">
+    <div class="mb-10 px-4">
+        <h1 class="font-headline font-bold text-primary dark:text-slate-50">The Curator</h1>
+    </div>
+    <div class="flex flex-col gap-2 flex-1">
+        <!-- Active: Dashboard -->
+        <a class="flex items-center gap-4 bg-white dark:bg-slate-800 text-primary dark:text-white rounded-xl p-4 shadow-sm translate-x-1 transition-transform"
+           href="#">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            <span class="font-label font-medium text-sm">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors"
+           href="#">
+            <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+            <span class="font-label font-medium text-sm">Assets</span>
+        </a>
+        <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors"
+           href="#">
+            <span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+            <span class="font-label font-medium text-sm">Rooms</span>
+        </a>
+        <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors"
+           href="#">
+            <span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+            <span class="font-label font-medium text-sm">Assignments</span>
+        </a>
+    </div>
+    <div class="mt-auto p-4 flex items-center gap-3 bg-surface-container-high rounded-xl">
+        <img alt="Admin Profile" class="w-10 h-10 rounded-full" data-alt="Academic administrator profile portrait"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgklJ7tXITckiye52O0dytvMbB2AD2EEtoJ88RL1fJFjj6PSwTelqj-P3zuiDxxlE-ddxbcuV311C_VO1TRqV8V8RmqOA2hF4IjLYG4_8Zz2fl2PtHCgSsA3oIOOOZJZ_q9f1LrBcDkjSzH1Cwmewd6My72NPNxQuoCPPcmmjoY4ZYdgEbE75MZxZiZ3Rsf06BuvKVNS6lXvWHWu-IMinkV08DRicPRCkfd2HEUfY69yrfFIjV0X4jywBQZ3FPC1y3WKVOUeLXHCs"/>
+        <div class="overflow-hidden">
+            <p class="font-headline font-bold text-sm text-primary truncate">Academic Curator</p>
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Institutional Admin</p>
+        </div>
+    </div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-72 min-h-screen">
+    <!-- TopAppBar (Shared Component) -->
+    <header class="flex justify-between items-center px-6 py-4 w-full bg-surface dark:bg-slate-950 sticky top-0 z-40">
+        <div class="flex items-center gap-4">
+            <button class="md:hidden text-primary">
+                <span class="material-symbols-outlined" data-icon="menu">menu</span>
+            </button>
+            <h2 class="font-headline font-bold text-2xl tracking-tight text-primary">Dashboard</h2>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden sm:flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-full">
+                <span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="search">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-sm font-label w-48"
+                       placeholder="Search archives..." type="text"/>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-80 transition-opacity"
+                      data-icon="notifications">notifications</span>
+                <div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center text-white font-bold">
+                    A
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="p-6 md:p-10 space-y-10 max-w-7xl mx-auto">
+        <!-- Hero Section: Editorial Stats Overview -->
+        <section>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Total Assets Card -->
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.04)] relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">Total
+                            Assets</p>
+                        <h3 class="font-headline font-extrabold text-4xl text-primary">1,482</h3>
+                        <div class="mt-4 flex items-center gap-1 text-green-600">
+                            <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                            <span class="text-xs font-bold">+12% this month</span>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-surface-container opacity-20 group-hover:scale-110 transition-transform duration-500"
+                          data-icon="inventory_2">inventory_2</span>
+                </div>
+                <!-- Assets in Use Card -->
+                <div class="bg-primary-container p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.1)] relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <p class="font-label text-[11px] uppercase tracking-widest text-on-primary-container mb-1">
+                            Assets in Use</p>
+                        <h3 class="font-headline font-extrabold text-4xl text-white">894</h3>
+                        <div class="mt-4 flex items-center gap-2">
+                            <div class="w-full bg-white/10 h-1 rounded-full overflow-hidden">
+                                <div class="bg-secondary-container h-full w-[60%]"></div>
+                            </div>
+                            <span class="text-[10px] font-bold text-white/60">60%</span>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-white/5"
+                          data-icon="person_play" style="font-variation-settings: 'FILL' 1;">person_play</span>
+                </div>
+                <!-- Available Rooms Card -->
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40_rgba(7,28,54,0.04)] relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Available Rooms</p>
+                        <h3 class="font-headline font-extrabold text-4xl text-primary">42</h3>
+                        <div class="mt-4 flex items-center gap-2">
+                            <span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+                            <span class="text-xs font-bold text-on-surface-variant">Ready for assignment</span>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-surface-container opacity-20 group-hover:scale-110 transition-transform duration-500"
+                          data-icon="meeting_room">meeting_room</span>
+                </div>
+                <!-- Pending Assignments Card -->
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40_rgba(7,28,54,0.04)] relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">Pending
+                            Requests</p>
+                        <h3 class="font-headline font-extrabold text-4xl text-primary">18</h3>
+                        <div class="mt-4 flex items-center gap-1 text-secondary">
+                            <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                            <span class="text-xs font-bold">Requires attention</span>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-surface-container opacity-20 group-hover:scale-110 transition-transform duration-500"
+                          data-icon="pending_actions">pending_actions</span>
+                </div>
+            </div>
+        </section>
+        <!-- Main Dashboard Layout: Bento Grid -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Quick Actions: Left Column -->
+            <div class="lg:col-span-4 space-y-6">
+                <h4 class="font-headline font-bold text-lg text-primary">Quick Curations</h4>
+                <div class="bg-surface-container-low p-6 rounded-2xl space-y-4">
+                    <button id="add-asset-btn"
+                            class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between group">
+                        <span>Add New Asset</span>
+                        <span class="material-symbols-outlined">add_circle</span>
+                    </button>
+                    <button class="w-full bg-surface-container-lowest text-primary py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between hover:bg-white/80 transition-colors shadow-sm active:scale-95 duration-200">
+                        <span>Create Assignment</span>
+                        <span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                    </button>
+                    <button class="w-full bg-surface-container-lowest text-primary py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between hover:bg-white/80 transition-colors shadow-sm active:scale-95 duration-200">
+                        <span>Inventory Audit</span>
+                        <span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+                    </button>
+                </div>
+                <!-- Visual Asset Preview Card -->
+                <div class="rounded-2xl overflow-hidden relative h-64 shadow-xl">
+                    <img alt="School Lab" class="w-full h-full object-cover"
+                         data-alt="Modern high school science laboratory with computers"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUiwpxvnqfiMWUfnGHi-PIJJpIf_gDWCUoWbpUt84IHjjJMkt1sko7dl8Mxa2mllpV3iNx59_sx5p1yg3stbfIIZAypHWZKOumTyJJDQdU99NjWRDVIMy6F8vHnUY145hYxKQ0YQ5u1ppgVZi2owx9VSLRA0__IdNIdYW3iCyByv6mhALjKCtuNKEnT9yOTvEz5EYGq_MBEYeSz14C-L-0deZp1hywUWUQLteYnqZTtU46STcYoAS4Hl0Wc9RpjseO4lYgPXH3HF4"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-6">
+                        <span class="bg-secondary-container text-white text-[10px] font-bold px-2 py-1 rounded w-fit mb-2 uppercase tracking-tighter">Newest Facility</span>
+                        <h5 class="text-white font-headline font-bold text-lg leading-tight">North Wing Media Lab</h5>
+                        <p class="text-white/70 text-sm font-body">24 Assets Tracked</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Activity Feed: Right Column -->
+            <div class="lg:col-span-8 space-y-6">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-headline font-bold text-lg text-primary">Recent Curations</h4>
+                    <button class="text-on-primary-container font-label text-sm font-bold hover:underline">View Ledger
+                    </button>
+                </div>
+                <div class="bg-surface-container-lowest rounded-2xl shadow-[0_12px_40px_rgba(7,28,54,0.04)] overflow-hidden">
+                    <div class="divide-y divide-surface-container">
+                        <!-- Activity Item 1 -->
+                        <div class="p-6 flex items-start gap-4 hover:bg-surface-container-low transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shrink-0">
+                                <span class="material-symbols-outlined" data-icon="laptop_mac">laptop_mac</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h6 class="font-headline font-bold text-on-surface">Laptop #42 Assigned</h6>
+                                    <span class="text-on-surface-variant text-xs font-label">2m ago</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Assigned to <span
+                                        class="text-primary font-semibold">Science Lab 1</span> by Admin Sarah.</p>
+                                <div class="mt-2 flex gap-2">
+                                    <span class="bg-surface-container-high text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-full">TAG: IT-042</span>
+                                    <span class="bg-surface-container-high text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-full">BLDG: NORTH</span>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant cursor-pointer"
+                                  data-icon="more_vert">more_vert</span>
+                        </div>
+                        <!-- Activity Item 2 -->
+                        <div class="p-6 flex items-start gap-4 hover:bg-surface-container-low transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shrink-0">
+                                <span class="material-symbols-outlined" data-icon="piano">piano</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h6 class="font-headline font-bold text-on-surface">Grand Piano Moved</h6>
+                                    <span class="text-on-surface-variant text-xs font-label">45m ago</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Relocated from <span
+                                        class="text-primary font-semibold">Auditorium</span> to <span
+                                        class="text-primary font-semibold">Music Hall A</span>.</p>
+                            </div>
+                            <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant cursor-pointer"
+                                  data-icon="more_vert">more_vert</span>
+                        </div>
+                        <!-- Activity Item 3 -->
+                        <div class="p-6 flex items-start gap-4 hover:bg-surface-container-low transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-container shrink-0">
+                                <span class="material-symbols-outlined" data-icon="build"
+                                      style="font-variation-settings: 'FILL' 1;">build</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h6 class="font-headline font-bold text-on-surface">3D Printer Maintenance</h6>
+                                    <span class="text-on-surface-variant text-xs font-label">2h ago</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Asset <span
+                                        class="text-primary font-semibold">PRNT-991</span> marked as <span
+                                        class="text-secondary font-bold">Under Maintenance</span>.</p>
+                            </div>
+                            <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant cursor-pointer"
+                                  data-icon="more_vert">more_vert</span>
+                        </div>
+                        <!-- Activity Item 4 -->
+                        <div class="p-6 flex items-start gap-4 hover:bg-surface-container-low transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shrink-0">
+                                <span class="material-symbols-outlined" data-icon="add_business">add_business</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h6 class="font-headline font-bold text-on-surface">New Inventory Batch</h6>
+                                    <span class="text-on-surface-variant text-xs font-label">5h ago</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Added 50x <span
+                                        class="text-primary font-semibold">Ergonomic Chairs</span> to storage.</p>
+                            </div>
+                            <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant cursor-pointer"
+                                  data-icon="more_vert">more_vert</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-4 text-center">
+                        <button class="text-primary font-label text-[10px] font-extrabold uppercase tracking-widest hover:opacity-70 transition-opacity">
+                            Show Older Activity
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Spacer for Bottom Nav on Mobile -->
+    <div class="h-24 md:hidden"></div>
+</main>
+<!-- BottomNavBar (Shared Component) - Mobile Only -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-t-3xl shadow-[0_-12px_40px_rgba(7,28,54,0.06)] md:hidden">
+    <a class="flex flex-col items-center justify-center bg-primary-container text-white rounded-2xl p-3 active:scale-90 transition-all"
+       href="#">
+        <span class="material-symbols-outlined" data-icon="home">home</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Home</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-primary-container transition-colors"
+       href="#">
+        <span class="material-symbols-outlined" data-icon="category">category</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Assets</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-primary-container transition-colors"
+       href="#">
+        <span class="material-symbols-outlined" data-icon="door_front">door_front</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Rooms</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-primary-container transition-colors"
+       href="#">
+        <span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+        <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Tasks</span>
+    </a>
+</nav>
+
+<div id="asset-modal"
+     class="fixed inset-0 bg-black/40 hidden flex items-center justify-center z-50">
+
+    <div class="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl">
+
+        <h2 class="text-xl font-bold mb-4">Add New Asset</h2>
+
+        <!-- Asset Model -->
+        <label class="text-sm font-semibold">Asset Model</label>
+        <select id="asset-model-select"
+                class="w-full mt-1 mb-4 p-3 border rounded-lg">
+            <option value="">Select asset model</option>
+        </select>
+
+        <!-- Serial -->
+        <label class="text-sm font-semibold">Serial Number (optional)</label>
+        <input id="serial-number"
+               type="text"
+               class="w-full mt-1 mb-6 p-3 border rounded-lg"
+               placeholder="e.g. SN-123456"/>
+
+        <!-- Asset Type -->
+        <label class="text-sm font-semibold">Asset Type</label>
+        <select id="asset-type-select" class="w-full mt-1 mb-6 p-3 border rounded-lg">
+            <option value="">Select asset type</option>
+            <option value="MONITOR">Monitor</option>
+            <option value="LAPTOP">Monitor</option>
+            <option value="PRINTER">Printer</option>
+            <option value="PROJECTOR">Projector</option>
+            <option value="KEYBOARD">Keyboard</option>
+            <option value="MOUSE">Mouse</option>
+            <option value="SPEAKER">Speaker</option>
+            <option value="HEADSET">Headset</option>
+            <option value="TABLET">Tablet</option>
+            <option value="HARDDRIVE">Hard drive</option>
+            <option value="GRAPHICCARD">Graphic card</option>
+            <option value="OTHER">Other</option>
+        </select>
+
+        <!-- Actions -->
+        <div class="flex justify-end gap-3">
+            <button id="close-modal"
+                    class="px-4 py-2 bg-gray-200 rounded-lg">
+                Cancel
+            </button>
+
+            <button id="submit-asset"
+                    class="px-4 py-2 bg-primary text-white rounded-lg">
+                Add Asset
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div id="toast"
+     class="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 transition-opacity duration-300">
+    Asset added successfully
+</div>
+
+<script src="/js/app.js" defer></script>
+</body>
+</html>
