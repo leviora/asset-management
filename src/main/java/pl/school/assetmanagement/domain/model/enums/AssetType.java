@@ -4,6 +4,7 @@ public enum AssetType {
 
     COMPUTER,
     MONITOR,
+    LAPTOP,
     PRINTER,
     PROJECTOR,
     KEYBOARD,
@@ -11,5 +12,7 @@ public enum AssetType {
     SPEAKER,
     HEADSET,
     TABLET,
+    HARDDRIVE,
+    GRAPHICCARD,
     OTHER
 }

@@ -21,15 +21,10 @@ public class CreateAssetService implements CreateAsset {
 
     @Override
     public AssetId create(AssetModelId assetModelId, String serialNumber, AssetType assetType) {
-        assetModelJpaRepository.findById(assetModelId.value())
-                .orElseThrow(() -> new RuntimeException("Model not found"));
-
+        assetModelJpaRepository.findById(assetModelId.value()).orElseThrow(() -> new RuntimeException("Model not found"));
         Asset asset = Asset.createNew(assetModelId, assetType);
-
         asset.assignSerialNumber(serialNumber);
-
         Asset saved = assetRepository.save(asset);
-
         return saved.getId();
     }
 }
