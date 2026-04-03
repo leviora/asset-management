@@ -32,17 +32,21 @@
                 "surface-variant": "#e0e3e6",
                 "surface-container-low": "#f2f4f7",
                 "on-surface-variant": "#44474d",
-                "background": "#f7f9fc",
+<!--                "background": "#f7f9fc",-->
+ background: "#f8fafc",
                 "on-primary-fixed-variant": "#364764",
-                "secondary-container": "#fc8a40",
+<!--                "secondary-container": "#fc8a40",-->
+"secondary-container": "#fc8a40",
                 "primary-fixed": "#d6e3ff",
-                "primary": "#000615",
+<!--                "primary": "#000615",-->
+"primary": "#0f172a",
                 "outline": "#75777e",
                 "secondary-fixed-dim": "#ffb68d",
                 "tertiary-fixed-dim": "#f4be4e",
                 "inverse-on-surface": "#eff1f4",
                 "secondary": "#9b4500",
-                "on-primary-container": "#7587a7",
+<!--                "on-primary-container": "#7587a7",-->
+"on-primary-container": "#f1f5f9",
                 "outline-variant": "#c4c6ce",
                 "surface-dim": "#d8dadd",
                 "on-secondary-fixed-variant": "#763300",
@@ -61,7 +65,8 @@
                 "error": "#ba1a1a",
                 "surface-container-high": "#e6e8eb",
                 "on-surface": "#191c1e",
-                "primary-container": "#0b1f3a",
+<!--                "primary-container": "#0b1f3a",-->
+"primary-container": "#1e293b",
                 "on-primary-fixed": "#071c36",
                 "on-background": "#191c1e",
                 "surface": "#f7f9fc"
@@ -76,6 +81,7 @@
           },
         }
 
+
     </script>
     <style>
         .material-symbols-outlined {
@@ -86,15 +92,17 @@
             backdrop-filter: blur(20px);
         }
 
+
     </style>
     <style>
     body {
       min-height: max(884px, 100dvh);
     }
 
+
     </style>
 </head>
-<body class="bg-surface font-body text-on-surface">
+<body class="bg-gradient-to-br from-gray-50 to-blue-100">
 <!-- NavigationDrawer (Shared Component) -->
 <aside class="fixed inset-y-0 left-0 z-50 flex flex-col p-4 bg-surface-container-low dark:bg-slate-900 rounded-r-3xl h-full w-72 shadow-2xl shadow-primary-container/10 hidden md:flex">
     <div class="mb-10 px-4">
@@ -108,7 +116,7 @@
             <span class="font-label font-medium text-sm">Dashboard</span>
         </a>
         <a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 p-4 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors"
-           href="#">
+           href="/assetsList.html">
             <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
             <span class="font-label font-medium text-sm">Assets</span>
         </a>
@@ -166,10 +174,10 @@
                     <div class="relative z-10">
                         <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">Total
                             Assets</p>
-                        <h3 class="font-headline font-extrabold text-4xl text-primary">1,482</h3>
+                        <h3 id="total-assets" class="font-headline font-extrabold text-4xl text-primary">0</h3>
                         <div class="mt-4 flex items-center gap-1 text-green-600">
                             <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
-                            <span class="text-xs font-bold">+12% this month</span>
+                            <!--                            <span class="text-xs font-bold">+12% this month</span>-->
                         </div>
                     </div>
                     <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-surface-container opacity-20 group-hover:scale-110 transition-transform duration-500"
@@ -180,12 +188,12 @@
                     <div class="relative z-10">
                         <p class="font-label text-[11px] uppercase tracking-widest text-on-primary-container mb-1">
                             Assets in Use</p>
-                        <h3 class="font-headline font-extrabold text-4xl text-white">894</h3>
+                        <h3 id="in-use-assets" class="font-headline font-extrabold text-4xl text-white">0</h3>
                         <div class="mt-4 flex items-center gap-2">
                             <div class="w-full bg-white/10 h-1 rounded-full overflow-hidden">
                                 <div class="bg-secondary-container h-full w-[60%]"></div>
                             </div>
-                            <span class="text-[10px] font-bold text-white/60">60%</span>
+                            <!--                            <span class="text-[10px] font-bold text-white/60">60%</span>-->
                         </div>
                     </div>
                     <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-white/5"
@@ -196,7 +204,7 @@
                     <div class="relative z-10">
                         <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">
                             Available Rooms</p>
-                        <h3 class="font-headline font-extrabold text-4xl text-primary">42</h3>
+                        <h3 class="font-headline font-extrabold text-4xl text-primary">0</h3>
                         <div class="mt-4 flex items-center gap-2">
                             <span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
                             <span class="text-xs font-bold text-on-surface-variant">Ready for assignment</span>
@@ -210,7 +218,7 @@
                     <div class="relative z-10">
                         <p class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant mb-1">Pending
                             Requests</p>
-                        <h3 class="font-headline font-extrabold text-4xl text-primary">18</h3>
+                        <h3 class="font-headline font-extrabold text-4xl text-primary">0</h3>
                         <div class="mt-4 flex items-center gap-1 text-secondary">
                             <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
                             <span class="text-xs font-bold">Requires attention</span>
@@ -228,11 +236,11 @@
                 <h4 class="font-headline font-bold text-lg text-primary">Quick Curations</h4>
                 <div class="bg-surface-container-low p-6 rounded-2xl space-y-4">
                     <button id="add-asset-btn"
-                            class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between group">
+                            class="w-full bg-secondary-container hover:opacity-90 text-white py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between group">
                         <span>Add New Asset</span>
                         <span class="material-symbols-outlined">add_circle</span>
                     </button>
-                    <button class="w-full bg-surface-container-lowest text-primary py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between hover:bg-white/80 transition-colors shadow-sm active:scale-95 duration-200">
+                    <button id="create-assignment-btn"class="w-full bg-surface-container-lowest text-primary py-4 px-6 rounded-full font-label font-bold text-sm uppercase tracking-wider flex items-center justify-between hover:bg-white/80 transition-colors shadow-sm active:scale-95 duration-200">
                         <span>Create Assignment</span>
                         <span class="material-symbols-outlined" data-icon="assignment">assignment</span>
                     </button>
@@ -260,7 +268,7 @@
                     <button class="text-on-primary-container font-label text-sm font-bold hover:underline">View Ledger
                     </button>
                 </div>
-                <div class="bg-surface-container-lowest rounded-2xl shadow-[0_12px_40px_rgba(7,28,54,0.04)] overflow-hidden">
+                <div class="bg-surface-container-lowest border border-gray-200 rounded-2xl shadow-[0_12px_40px_rgba(7,28,54,0.04)] overflow-hidden">
                     <div class="divide-y divide-surface-container">
                         <!-- Activity Item 1 -->
                         <div class="p-6 flex items-start gap-4 hover:bg-surface-container-low transition-colors group">
@@ -349,12 +357,12 @@
 <!-- BottomNavBar (Shared Component) - Mobile Only -->
 <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-t-3xl shadow-[0_-12px_40px_rgba(7,28,54,0.06)] md:hidden">
     <a class="flex flex-col items-center justify-center bg-primary-container text-white rounded-2xl p-3 active:scale-90 transition-all"
-       href="#">
+       href="/">
         <span class="material-symbols-outlined" data-icon="home">home</span>
         <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Home</span>
     </a>
     <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-3 hover:text-primary-container transition-colors"
-       href="#">
+       href="/assetsList.html">
         <span class="material-symbols-outlined" data-icon="category">category</span>
         <span class="font-inter font-bold text-[10px] uppercase tracking-tighter">Assets</span>
     </a>
@@ -430,6 +438,43 @@
     Asset added successfully
 </div>
 
-<script src="/js/app.js" defer></script>
+
+<div id="assignment-modal"
+     class="fixed inset-0 bg-black/40 hidden flex items-center justify-center z-50">
+
+    <div class="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl">
+
+        <h2 class="text-xl font-bold mb-4">Create Assignment</h2>
+
+        <!-- Asset -->
+        <label class="text-sm font-semibold">Asset</label>
+        <select id="assign-asset-select"
+                class="w-full mt-1 mb-4 p-3 border rounded-lg">
+            <option value="">Select asset</option>
+        </select>
+
+        <!-- Room -->
+        <label class="text-sm font-semibold">Room</label>
+        <select id="assign-room-select"
+                class="w-full mt-1 mb-6 p-3 border rounded-lg">
+            <option value="">Select room</option>
+        </select>
+
+        <div class="flex justify-end gap-3">
+            <button id="close-assignment-modal"
+                    class="px-4 py-2 bg-gray-200 rounded-lg">
+                Cancel
+            </button>
+
+            <button id="submit-assignment"
+                    class="px-4 py-2 bg-primary text-white rounded-lg">
+                Assign
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script type="module" src="/js/main.js"></script>
 </body>
 </html>

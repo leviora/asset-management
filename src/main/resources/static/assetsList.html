@@ -99,8 +99,8 @@
     </div>
     <div class="flex items-center gap-6">
         <nav class="hidden md:flex gap-8">
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="#">Dashboard</a>
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-primary hover:opacity-80 transition-opacity border-b-2 border-secondary-container pb-1" href="#">Assets</a>
+            <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="/">Dashboard</a>
+            <a class="font-label font-bold text-xs uppercase tracking-widest text-primary hover:opacity-80 transition-opacity border-b-2 border-secondary-container pb-1" href="/assetsList.html">Assets</a>
             <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="#">Rooms</a>
             <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="#">Assignments</a>
         </nav>
@@ -167,7 +167,8 @@
         <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
             <div class="relative z-10">
                 <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">Total Assets</span>
-                <span class="font-headline font-black text-4xl text-primary">1,248</span>
+
+                <span id="total-assets" class="font-headline font-black text-4xl text-primary">0</span>
             </div>
             <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-9xl" data-icon="devices">devices</span>
@@ -176,7 +177,8 @@
         <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
             <div class="relative z-10">
                 <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">In Use</span>
-                <span class="font-headline font-black text-4xl text-secondary">912</span>
+
+                <span id="in-use-assets" class="font-headline font-black text-4xl text-secondary">0</span>
             </div>
             <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-9xl" data-icon="check_circle">check_circle</span>
@@ -185,7 +187,8 @@
         <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
             <div class="relative z-10">
                 <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">Maintenance</span>
-                <span class="font-headline font-black text-4xl text-on-tertiary-container">24</span>
+
+                <span id="maintenance-assets" class="font-headline font-black text-4xl text-on-tertiary-container">0</span>
             </div>
             <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-9xl" data-icon="build">build</span>
@@ -206,91 +209,94 @@
             </div>
         </div>
         <!-- Asset Cards (Asymmetric/Editorial Style) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div id="assets-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
             <!-- Card 1 -->
-            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">
-                        <span class="material-symbols-outlined text-3xl" data-icon="laptop_mac">laptop_mac</span>
-                    </div>
-                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-lg text-primary mb-1">MacBook Pro M2</h4>
-                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-X991</p>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>
-                        <span class="text-sm font-medium text-on-surface-variant">Computing</span>
-                    </div>
-                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
-                        <span class="text-xs text-outline">Assigned: Prof. Aris</span>
-                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
+<!--                <div class="flex justify-between items-start mb-6">-->
+<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
+<!--                        <span class="material-symbols-outlined text-3xl" data-icon="laptop_mac">laptop_mac</span>-->
+<!--                    </div>-->
+<!--                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">MacBook Pro M2</h4>-->
+<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-X991</p>-->
+<!--                    <div class="flex items-center gap-2 mb-6">-->
+<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
+<!--                        <span class="text-sm font-medium text-on-surface-variant">Computing</span>-->
+<!--                    </div>-->
+<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
+<!--                        <span class="text-xs text-outline">Assigned: Prof. Aris</span>-->
+<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
             <!-- Card 2 -->
-            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">
-                        <span class="material-symbols-outlined text-3xl" data-icon="tablet_android">tablet_android</span>
-                    </div>
-                    <span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-widest rounded-full">Available</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-lg text-primary mb-1">iPad Air (5th Gen)</h4>
-                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-P442</p>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>
-                        <span class="text-sm font-medium text-on-surface-variant">Mobile Devices</span>
-                    </div>
-                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
-                        <span class="text-xs text-outline">Location: Storage A</span>
-                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
+<!--                <div class="flex justify-between items-start mb-6">-->
+<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
+<!--                        <span class="material-symbols-outlined text-3xl" data-icon="tablet_android">tablet_android</span>-->
+<!--                    </div>-->
+<!--                    <span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-widest rounded-full">Available</span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">iPad Air (5th Gen)</h4>-->
+<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-P442</p>-->
+<!--                    <div class="flex items-center gap-2 mb-6">-->
+<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
+<!--                        <span class="text-sm font-medium text-on-surface-variant">Mobile Devices</span>-->
+<!--                    </div>-->
+<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
+<!--                        <span class="text-xs text-outline">Location: Storage A</span>-->
+<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- Card 3 -->
-            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">
-                        <span class="material-symbols-outlined text-3xl" data-icon="cast_for_education">cast_for_education</span>
-                    </div>
-                    <span class="px-4 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Maintenance</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Smart Projector 4K</h4>
-                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2022-PR02</p>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>
-                        <span class="text-sm font-medium text-on-surface-variant">Audio Visual</span>
-                    </div>
-                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
-                        <span class="text-xs text-outline">Issue: Bulb Failure</span>
-                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
+<!--                <div class="flex justify-between items-start mb-6">-->
+<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
+<!--                        <span class="material-symbols-outlined text-3xl" data-icon="cast_for_education">cast_for_education</span>-->
+<!--                    </div>-->
+<!--                    <span class="px-4 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Maintenance</span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Smart Projector 4K</h4>-->
+<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2022-PR02</p>-->
+<!--                    <div class="flex items-center gap-2 mb-6">-->
+<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
+<!--                        <span class="text-sm font-medium text-on-surface-variant">Audio Visual</span>-->
+<!--                    </div>-->
+<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
+<!--                        <span class="text-xs text-outline">Issue: Bulb Failure</span>-->
+<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- Card 4 -->
-            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">
-                <div class="flex justify-between items-start mb-6">
-                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">
-                        <span class="material-symbols-outlined text-3xl" data-icon="desktop_windows">desktop_windows</span>
-                    </div>
-                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>
-                </div>
-                <div>
-                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Dell OptiPlex 7000</h4>
-                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2021-DT18</p>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>
-                        <span class="text-sm font-medium text-on-surface-variant">Workstation</span>
-                    </div>
-                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
-                        <span class="text-xs text-outline">Assigned: Lab 402</span>
-                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
+<!--                <div class="flex justify-between items-start mb-6">-->
+<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
+<!--                        <span class="material-symbols-outlined text-3xl" data-icon="desktop_windows">desktop_windows</span>-->
+<!--                    </div>-->
+<!--                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Dell OptiPlex 7000</h4>-->
+<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2021-DT18</p>-->
+<!--                    <div class="flex items-center gap-2 mb-6">-->
+<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
+<!--                        <span class="text-sm font-medium text-on-surface-variant">Workstation</span>-->
+<!--                    </div>-->
+<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
+<!--                        <span class="text-xs text-outline">Assigned: Lab 402</span>-->
+<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
         </div>
     </section>
 </main>
@@ -319,4 +325,7 @@
     <!-- Optional Label for Desktop Hover -->
     <span class="absolute right-full mr-4 bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block uppercase tracking-widest">Add New Asset</span>
 </button>
+
+<!--<script src="/js/app.js"></script>-->
+<script type="module" src="/js/main.js"></script>
 </body></html>

@@ -6,11 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.school.assetmanagement.application.port.in.CreateAsset;
 import pl.school.assetmanagement.application.port.out.AssetModelRepository;
+import pl.school.assetmanagement.application.port.out.AssetRepository;
+import pl.school.assetmanagement.application.port.out.RoomRepository;
+import pl.school.assetmanagement.domain.model.Asset;
+import pl.school.assetmanagement.domain.model.AssetId;
 import pl.school.assetmanagement.domain.model.AssetModel;
-import pl.school.assetmanagement.domain.model.AssetModelId;
+import pl.school.assetmanagement.domain.model.Room;
+import pl.school.assetmanagement.domain.model.enums.AssetStatus;
 import pl.school.assetmanagement.domain.model.enums.AssetType;
-
-import java.util.UUID;
+import pl.school.assetmanagement.domain.model.enums.RoomType;
 
 @Configuration
 @RequiredArgsConstructor
@@ -18,6 +22,9 @@ public class DataInitializer {
 
     private final AssetModelRepository assetModelRepository;
     private final CreateAsset createAsset;
+    private final AssetRepository assetRepository;
+    private final RoomRepository roomRepository;
+
     @Bean
     CommandLineRunner initData() {
         return args -> {
@@ -38,11 +45,74 @@ public class DataInitializer {
                     AssetModel.createNew("Epson", "Projector X200", AssetType.PROJECTOR)
             );
 
-            createAsset.create(mac.getId(), "SN-MAC-001", AssetType.COMPUTER);
-            createAsset.create(mac.getId(), "SN-MAC-002", AssetType.COMPUTER);
-            createAsset.create(dell.getId(), "SN-DELL-001", AssetType.PROJECTOR);
-            createAsset.create(projector.getId(), "SN-PROJ-001", AssetType.KEYBOARD);
-            System.out.println("🔥 AssetModels + Assets initialized");
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    mac.getId(),
+                    AssetType.COMPUTER,
+                    AssetStatus.AVAILABLE,
+                    "SN-MAC-001",
+                    null
+            ));
+
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    mac.getId(),
+                    AssetType.COMPUTER,
+                    AssetStatus.IN_USE,
+                    "SN-MAC-002",
+                    null
+            ));
+
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    mac.getId(),
+                    AssetType.COMPUTER,
+                    AssetStatus.MAINTENANCE,
+                    "SN-MAC-003",
+                    null
+            ));
+
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    dell.getId(),
+                    AssetType.COMPUTER,
+                    AssetStatus.AVAILABLE,
+                    "SN-DELL-001",
+                    null
+            ));
+
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    dell.getId(),
+                    AssetType.COMPUTER,
+                    AssetStatus.IN_USE,
+                    "SN-DELL-002",
+                    null
+            ));
+
+            assetRepository.save(Asset.restore(
+                    AssetId.newAssetId(),
+                    projector.getId(),
+                    AssetType.PROJECTOR,
+                    AssetStatus.MAINTENANCE,
+                    "SN-PROJ-001",
+                    null
+            ));
+
+
+            {
+
+                if (!roomRepository.findAll().isEmpty()) return;
+
+                Room room101 = Room.create("101", "Computer room", RoomType.COMPUTER_LAB);
+                Room room117 = Room.create("117", "Lecture room", RoomType.LECTURE);
+                Room room119 = Room.create("119", "Computer room", RoomType.COMPUTER_LAB);
+
+                roomRepository.save(room101);
+                roomRepository.save(room117);
+                roomRepository.save(room119);
+            };
+
         };
     }
 }

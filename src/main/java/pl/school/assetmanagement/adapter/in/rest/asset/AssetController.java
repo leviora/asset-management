@@ -7,9 +7,12 @@ import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.CreateAssetRequest;
 import pl.school.assetmanagement.adapter.out.persistence.assetmodel.AssetModelJpaRepository;
 import pl.school.assetmanagement.application.port.in.*;
+import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
 import pl.school.assetmanagement.domain.model.AssetModelId;
+import pl.school.assetmanagement.domain.model.RoomId;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,8 +26,19 @@ public class AssetController {
     private final RemoveAssetFromRoom removeAssetFromRoom;
     private final GetAsset getAsset;
     private final AssetWebMapper webMapper;
-    private final AssetModelJpaRepository assetModelJpaRepository;
+    private final GetAllAssets getAllAssets;
+    private final AssignAssetToRoom assignAssetToRoom;
 
+    @GetMapping
+    public ResponseEntity<List<AssetResponse>> getAll() {
+
+        return ResponseEntity.ok(
+                getAllAssets.getAll()
+                        .stream()
+                        .map(webMapper::toResponse)
+                        .toList()
+        );
+    }
 
     @PostMapping
     public ResponseEntity<UUID> create(@RequestBody CreateAssetRequest request) {
@@ -65,8 +79,14 @@ public class AssetController {
     @GetMapping("/{id}")
     public ResponseEntity<AssetResponse> get(@PathVariable UUID id) {
 
-        var asset = getAsset.get(new AssetId(id));
+        Asset asset = getAsset.get(new AssetId(id));
 
         return ResponseEntity.ok(webMapper.toResponse(asset));
+    }
+
+    @PatchMapping("/{id}/assign-room/{roomId}")
+    public ResponseEntity<Void> assignToRoom(@PathVariable UUID id, @PathVariable UUID roomId) {
+        assignAssetToRoom.assign(new AssetId(id), new RoomId(roomId));
+        return ResponseEntity.noContent().build();
     }
 }

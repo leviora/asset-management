@@ -95,6 +95,8 @@ public class Asset {
             throw new IllegalStateException("Asset already assigned to a room");
         }
         this.roomId = roomId;
+        this.status = AssetStatus.IN_USE;
+
     }
 
     public void removeFromRoom() {
@@ -102,6 +104,7 @@ public class Asset {
             throw new IllegalStateException("Asset is not assigned to any room");
         }
         this.roomId = null;
+        this.status = AssetStatus.IN_USE;
     }
 }
 

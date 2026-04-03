@@ -27,6 +27,7 @@ public class AssignAssetToRoomService implements AssignAssetToRoom {
 
         asset.assignToRoom(roomId);
 
+
         assetRepository.save(asset);
     }
 }
