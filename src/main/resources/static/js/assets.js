@@ -2,6 +2,16 @@
 
 import { fetchAssets } from "./api.js";
 import { showToast } from "./ui.js";
+import { markAssetBroken } from "./api.js";
+
+export async function getAssetsData() {
+    try {
+        return await fetchAssets();
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
 
 // Main function used by dashboard
 export async function loadAssets() {
@@ -61,20 +71,47 @@ function renderAssets(container, assets) {
             p-6 rounded-xl bg-white shadow hover:shadow-xl transition
         `;
 
-        card.innerHTML = `
-            <div class="flex justify-between mb-3">
-                <span class="${getStatusClass(asset.status)} px-2 py-1 text-xs rounded">
-                    ${asset.status}
-                </span>
-            </div>
+      card.innerHTML = `
+          <div class="flex justify-between mb-3">
+              <span class="${getStatusClass(asset.status)} px-2 py-1 text-xs rounded">
+                  ${asset.status}
+              </span>
+          </div>
 
-            <h4 class="font-bold">${asset.assetType}</h4>
+          <h4 class="font-bold">${asset.assetType}</h4>
 
-            <p class="text-xs text-gray-500 mb-2">
-                SN: ${asset.serialNumber || "N/A"}
-            </p>
-        `;
+          <p class="text-xs text-gray-500 mb-2">
+              SN: ${asset.serialNumber || "N/A"}
+          </p>
+
+          <div class="mt-4">
+              <button
+                  data-action="broken"
+                  data-id="${asset.id}"
+                  class="text-xs px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                  Mark as broken
+              </button>
+          </div>
+      `;
 
         container.appendChild(card);
+    });
+
+    // attach events AFTER render
+    container.querySelectorAll('[data-action="broken"]').forEach(btn => {
+        btn.addEventListener("click", async () => {
+            const id = btn.dataset.id;
+
+            try {
+                await markAssetBroken(id);
+                showToast("Marked as broken 🔧");
+
+                await loadAssets(); // refresh UI
+
+            } catch (err) {
+                console.error(err);
+                showToast("Failed ❌", true);
+            }
+        });
     });
 }

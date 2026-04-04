@@ -37,3 +37,13 @@ export async function createAsset(payload) {
         throw new Error("Failed to create asset");
     }
 }
+
+export async function markAssetBroken(assetId) {
+    const res = await fetch(`/api/assets/${assetId}/broken`, {
+        method: "PATCH"
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to mark as broken");
+    }
+}

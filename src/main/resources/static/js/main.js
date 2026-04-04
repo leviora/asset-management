@@ -1,7 +1,7 @@
 // main.js
 
-import { loadAssets } from "./assets.js";
-import { fetchAssets, fetchAssetModels, createAsset } from "./api.js";
+import { loadAssets, getAssetsData } from "./assets.js";
+import { fetchAssetModels, createAsset } from "./api.js";
 import { showToast } from "./ui.js";
 import { loadRooms } from "./rooms.js";
 
@@ -98,8 +98,7 @@ function setupAssignment() {
 
 async function populateAssignmentData() {
 
-    // 🔥 IMPORTANT: use fetchAssets, not loadAssets
-    const assets = await fetchAssets();
+    const assets = await getAssetsData();
 
     const assetSelect = document.getElementById("assign-asset-select");
     assetSelect.innerHTML = `<option value="">Select asset</option>`;
