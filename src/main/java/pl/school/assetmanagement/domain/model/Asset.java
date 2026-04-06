@@ -104,7 +104,7 @@ public class Asset {
             throw new IllegalStateException("Asset is not assigned to any room");
         }
         this.roomId = null;
-        this.status = AssetStatus.IN_USE;
+        this.status = AssetStatus.AVAILABLE;
     }
 }
 
