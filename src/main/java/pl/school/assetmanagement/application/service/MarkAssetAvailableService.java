@@ -2,7 +2,7 @@ package pl.school.assetmanagement.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.school.assetmanagement.application.port.in.MarkAssetAsBroken;
+import pl.school.assetmanagement.application.port.in.MarkAssetAvailable;
 import pl.school.assetmanagement.application.port.out.AssetRepository;
 import pl.school.assetmanagement.application.port.out.RoomRepository;
 import pl.school.assetmanagement.domain.model.Asset;
@@ -11,7 +11,7 @@ import pl.school.assetmanagement.domain.model.Room;
 
 @Service
 @RequiredArgsConstructor
-public class MarkAssetAsBrokenService implements MarkAssetAsBroken {
+public class MarkAssetAvailableService implements MarkAssetAvailable {
 
     private final AssetRepository assetRepository;
     private final RoomRepository roomRepository;
@@ -25,7 +25,7 @@ public class MarkAssetAsBrokenService implements MarkAssetAsBroken {
         Room storage = roomRepository.findStorageRoom()
                 .orElseThrow(() -> new IllegalStateException("Storage room not found"));
 
-        asset.markAsBroken(storage.getRoomId());
+        asset.markAsAvailable(storage.getRoomId());
 
         assetRepository.save(asset);
     }

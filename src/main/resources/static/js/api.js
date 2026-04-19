@@ -1,14 +1,22 @@
 // api.js
 
-export async function fetchAssets() {
-    const response = await fetch('/api/assets');
+export async function fetchAssets(filters = {}) {
+    const params = new URLSearchParams();
+
+    if (filters.serialNumber) params.append("serialNumber", filters.serialNumber);
+    if (filters.status) params.append("status", filters.status);
+    if (filters.assetType) params.append("assetType", filters.assetType);
+
+    const response = await fetch(`/api/assets?${params.toString()}`);
 
     if (!response.ok) {
         console.error("Assets fetch failed:", response.status);
         return [];
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    return data.content ?? data;
 }
 
 export async function fetchAssetModels() {
@@ -77,3 +85,28 @@ export async function assignAssetToRoom(assetId, roomId) {
 
     if (!res.ok) throw new Error("Assign failed");
 }
+
+export async function markAssetAvailable(assetId) {
+    const res = await fetch(`/api/assets/${assetId}/available`, {
+        method: "PATCH"
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to mark as available");
+    }
+}
+
+export const ASSET_TYPES = [
+    "COMPUTER",
+    "PROJECTOR",
+    "MONITOR",
+    "PRINTER",
+    "KEYBOARD",
+    "MOUSE",
+    "SPEAKER",
+    "HEADSET",
+    "TABLET",
+    "HARDDRIVE",
+    "GRAPHICCARD",
+    "OTHER"
+];

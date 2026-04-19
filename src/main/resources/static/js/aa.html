@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Curator | Assets</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#dae2fd",
+                        "surface-tint": "#ffb690",
+                        "primary": "#ffb690",
+                        "on-tertiary-container": "#003554",
+                        "secondary-container": "#743814",
+                        "primary-fixed-dim": "#ffb690",
+                        "tertiary": "#93ccff",
+                        "surface-container-lowest": "#060e20",
+                        "on-primary-container": "#582200",
+                        "surface-container-high": "#222a3d",
+                        "outline": "#a78b7d",
+                        "secondary-fixed-dim": "#ffb690",
+                        "inverse-primary": "#9d4300",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#2d3449",
+                        "on-secondary-container": "#f9a477",
+                        "on-secondary": "#552100",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "surface-dim": "#0b1326",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "on-secondary-fixed-variant": "#713612",
+                        "surface-bright": "#31394d",
+                        "surface": "#0b1326",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "secondary": "#ffb690",
+                        "on-tertiary-fixed": "#001d32",
+                        "on-surface": "#dae2fd",
+                        "on-primary-fixed": "#341100",
+                        "tertiary-container": "#00a2f4",
+                        "surface-container-low": "#131b2e",
+                        "on-tertiary": "#003351",
+                        "on-secondary-fixed": "#341100",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container": "#171f33",
+                        "tertiary-fixed": "#cde5ff",
+                        "inverse-on-surface": "#283044",
+                        "secondary-fixed": "#ffdbca",
+                        "background": "#0b1326",
+                        "primary-fixed": "#ffdbca",
+                        "on-surface-variant": "#e0c0b1",
+                        "on-primary": "#552100",
+                        "outline-variant": "#584237",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-variant": "#2d3449",
+                        "primary-container": "#f97316",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+        .glass-header {
+            background: rgba(11, 19, 38, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+    <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<div class="flex min-h-screen">
+    <!-- NavigationDrawer (Shared Component) -->
+    <aside class="hidden md:flex flex-col h-screen sticky top-0 bg-[#0b1326] dark:bg-[#0b1326] h-full w-64 border-r-0 font-['Manrope'] tracking-tight">
+        <div class="p-6">
+            <span class="text-xl font-bold text-[#f97316]">The Curator</span>
+            <div class="mt-8 flex items-center gap-3">
+                <img alt="User Profile" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="Close-up of a sophisticated user profile avatar with a clean, modern aesthetic in a dark environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxZQu6Os_o9QBgWIPPYJHl_-fLwqpj6HbaEluQT2vTcPjjMGrSxl_p9CoRbpBs2pJOs7EyR_BrxZ_GfMzw5d1_ScLNYNgXZZpEt0_88XcE3X94LlXXTk_neStHTucpkYTfNiKm7-CLPAO-r8iasDiQF7x8mLOkjMlVx7spzaxx1hkvcM-KpXjtf8i8m6LoIIWCSY660IdINO6xv6xroiI_0V9ai4vtSz5dDJAzPbpJvP_W0kJfri23avC0lxg2kc9oLGgy8VxHFYM-"/>
+                <div>
+                    <p class="text-on-surface font-bold text-sm">The Curator</p>
+                    <p class="text-on-surface-variant text-xs">Asset Management</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a class="flex items-center gap-3 px-4 py-3 text-[#dae2fd] hover:bg-[#171f33] transition-colors scale-95 active:scale-100" href="#">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <!-- ACTIVE STATE: Assets -->
+            <a class="flex items-center gap-3 px-4 py-3 text-[#ffb690] bg-[#171f33] rounded-lg transition-colors scale-95 active:scale-100" href="#">
+                <span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                <span class="font-medium">Assets</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-[#dae2fd] hover:bg-[#171f33] transition-colors scale-95 active:scale-100" href="#">
+                <span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+                <span class="font-medium">Rooms</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-[#dae2fd] hover:bg-[#171f33] transition-colors scale-95 active:scale-100" href="#">
+                <span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+                <span class="font-medium">Assignments</span>
+            </a>
+        </nav>
+        <div class="p-6 bg-[#060e20]">
+            <div class="rounded-xl p-4 bg-surface-container border border-outline-variant/10">
+                <p class="text-xs text-on-surface-variant">System Status</p>
+                <p class="text-sm font-semibold text-primary mt-1">All Nodes Active</p>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 relative pb-24 md:pb-0">
+        <!-- TopAppBar (Shared Component) -->
+        <header class="bg-[#0b1326]/80 backdrop-blur-xl w-full sticky top-0 z-40 shadow-[0px_20px_40px_rgba(0,0,0,0.4)] flex items-center justify-between px-6 py-4 w-full">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-[#f97316] transition-all duration-300">
+                    <span class="material-symbols-outlined" data-icon="menu">menu</span>
+                </button>
+                <h1 class="text-lg font-black text-[#f97316] font-['Manrope'] font-semibold">The Curator</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-[#dae2fd] hover:text-[#ffb690] transition-all duration-300">
+                    <span class="material-symbols-outlined" data-icon="search">search</span>
+                </button>
+                <button class="text-[#dae2fd] hover:text-[#ffb690] transition-all duration-300">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+            </div>
+        </header>
+        <!-- Main Content Area -->
+        <div class="max-w-7xl mx-auto p-6 space-y-8" id="assets-container">
+            <!-- Search & Filters Header -->
+            <section class="space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div class="space-y-1">
+                        <h2 class="text-3xl font-extrabold tracking-tight font-headline text-on-surface">Inventory Collection</h2>
+                        <p class="text-on-surface-variant font-medium">Manage and monitor high-value hardware assets.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="bg-surface-container-high px-5 py-2.5 rounded-xl text-on-surface font-semibold flex items-center gap-2 hover:bg-surface-bright transition-all">
+                            <span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                            <span>Filter</span>
+                        </button>
+                        <button class="bg-primary-container px-5 py-2.5 rounded-xl text-on-primary-container font-bold flex items-center gap-2 hover:opacity-90 transition-all shadow-lg shadow-primary-container/20">
+                            <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                            <span>Add Asset</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Search Bar -->
+                <div class="relative group">
+<span class="absolute inset-y-0 left-4 flex items-center text-on-surface-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</span>
+                    <input class="w-full bg-surface-container-lowest border-0 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="Search by name, ID, or serial number..." type="text"/>
+                </div>
+            </section>
+            <!-- Asset Grid (Bento Style) -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Asset Card 1 -->
+                <div class="bg-surface-container group rounded-xl overflow-hidden transition-all duration-300 hover:bg-surface-container-high flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sleek silver laptop on a minimalist dark desk with soft ambient neon lighting, professional technology aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyOk2TacKWoBOzy4stvivcTLeGApHJzmEIxfxdzLgYzPhmkkxmTgGuRX3KJ2D1EVne6hhhW-22wPV-iY4GHdom8xLpmipndgDa_qhlZpfDRd1RxSjvf_pitn4LBTzdHbkXYw4ZVdbrHh9lJkEjZogSX1Z4B1l-_AflqACNA-PdaS_LhnxMGCOcj_rqgKdwKCdzTpiZiydprCGAVR1LemsEX8v8WC6YyXgMQHOp-djfkpMdLLw4Ng5AqLyHprLw7qnUn8OgzrSFoh71"/>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded-full border border-green-500/20 backdrop-blur-md uppercase tracking-wider">Available</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="text-lg font-bold text-on-surface leading-tight">MacBook Pro 16" - M3 Max</h3>
+                            <div class="flex items-center gap-3 text-xs text-on-surface-variant font-mono">
+                                <span>ID: CRT-7721</span>
+                                <span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+                                <span>SN: XG-990-221</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">IT</div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 bg-surface-container-highest text-primary rounded-lg hover:bg-primary hover:text-on-primary transition-all" title="Assign">
+                                    <span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
+                                </button>
+                                <button class="p-2 bg-surface-container-highest text-on-surface rounded-lg hover:bg-surface-bright transition-all">
+                                    <span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Asset Card 2 -->
+                <div class="bg-surface-container group rounded-xl overflow-hidden transition-all duration-300 hover:bg-surface-container-high flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="High-end professional workstation monitor displaying complex data visualizations in a dim creative studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGQMg59EqQWjiVMeMa5EFI0Spw4A7HS4MFj-Y3J8TRz7fQ-ia3J1qe9Y6ttb8THqQFpmO9ivG3ePTyJPswSBASxNR72vIGISwJp_N6kgTAeq7Af5sQG_d5wDdxfSnWDL662ZzfjTOvCqw8cf87cTf0aXsjwFrroVUBzidnSo5HCFjEHJAcOi2l42dPBh4lV7N-FQnubj6lPnQHbVHE4ZknCn5DZZoRNt-V-Z0aooDP2ZZlSvYtHF9Aq9xSxtIpKnj4ON2Qu2gq7tPF"/>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-primary-container text-on-primary-container text-[10px] font-bold rounded-full border border-primary-container/20 backdrop-blur-md uppercase tracking-wider">In Use</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="text-lg font-bold text-on-surface leading-tight">Studio Display 5K Nano</h3>
+                            <div class="flex items-center gap-3 text-xs text-on-surface-variant font-mono">
+                                <span>ID: CRT-4402</span>
+                                <span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+                                <span>SN: SD-2023-F4</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img alt="Jane Doe" class="w-8 h-8 rounded-full ring-2 ring-primary/20" data-alt="Minimalist avatar placeholder for a user named Jane Doe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQuSwhrzZFyjfx9-0VwS1X4fNxYiCWwHIOkXB4UStasuEJ2CmNA7G7pl97kIOh0p1fXsrFX16u2k1erU8G9b34nTG7T_viSojEKS3tfNO4UaD59TDT4GNtHzSRhRTjN3MblnfvxMKBnOzPJn4BQeLev676a2124E-NcoShqItsihh0UBNubMW03l54XTSx5ptP0ioCO8vLFIR4hoU6fIPZJusPtYvYlLqq1Q508KsU7lttEk_ZxRzsAFdEEFpnFYxoKVPjmKi75pk"/>
+                                <span class="text-xs text-on-surface-variant font-medium">Jane Doe</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 bg-surface-container-highest text-primary rounded-lg hover:bg-primary hover:text-on-primary transition-all" title="Manage">
+                                    <span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                                </button>
+                                <button class="p-2 bg-surface-container-highest text-on-surface rounded-lg hover:bg-surface-bright transition-all">
+                                    <span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Asset Card 3 -->
+                <div class="bg-surface-container group rounded-xl overflow-hidden transition-all duration-300 hover:bg-surface-container-high flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Professional VR headset with glowing light accents, sitting on a tech-focused workstation desk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzhCLu5XVGHnaKu_yvA8qXnv2oQWHppSXZyukgTW7xl0gVTKWJ8WRFEy5FD1NmHMtVMiAkge2J2iS0nU1GoAKnUj93gxbm3SNjrJLEkZ9D-KEmRRe8a-bdy-ZmgVk4wfCBYqtOUhQDrg1FFh1XHJ0eNxL7374rS9uJocZB_M7GTR4a8qkJDVH3D8KdiCWSIqL-0HBJeVygUU21U5dc_I8ZvkI5v3r_4_5y0r5LbEGnwUWRJYVUqa568Dgg0ILeogGZrhPzXaCUsQ12"/>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-orange-500/10 text-orange-400 text-[10px] font-bold rounded-full border border-orange-500/20 backdrop-blur-md uppercase tracking-wider">Maintenance</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="text-lg font-bold text-on-surface leading-tight">Vision One Dev Kit</h3>
+                            <div class="flex items-center gap-3 text-xs text-on-surface-variant font-mono">
+                                <span>ID: CRT-1109</span>
+                                <span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+                                <span>SN: VR-PRO-X1</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="construction">construction</span>
+                                <span class="text-xs text-on-surface-variant font-medium">Scheduled: Oct 24</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 bg-surface-container-highest text-primary rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+                                    <span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+                                </button>
+                                <button class="p-2 bg-surface-container-highest text-on-surface rounded-lg hover:bg-surface-bright transition-all">
+                                    <span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Asset Card 4 -->
+                <div class="bg-surface-container group rounded-xl overflow-hidden transition-all duration-300 hover:bg-surface-container-high flex flex-col lg:col-span-2">
+                    <div class="flex flex-col md:flex-row h-full">
+                        <div class="md:w-2/5 relative h-48 md:h-full">
+                            <img class="w-full h-full object-cover" data-alt="Powerful server rack hardware with glowing blue and orange status indicators in a dark data center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6wwR0XplaQBMBNe2niipbJcnmTYSB7lhx0FmOG1vE-6NczmPJgXslMHD4sldy75g4u9a6EfSPg0TdGRd4WPjhhI2KMhW5WM21ch3Bw_832rb7kRbJSt4kv7M32438NPwKFpHXCfONY6lv24H8W_o2tTDO1GPtRYL8WB2Napj-wuNeoeWj9lbAlNsioVsoIwEj1c7mjPymtMZQX5AtCr1Kg_9uRyi893aBr_9GXbHHlgx1W6msmOuP0MMltad2tVdBUe8ajTj1Z3Gp"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent md:bg-gradient-to-r"></div>
+                        </div>
+                        <div class="md:w-3/5 p-6 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div class="space-y-1">
+                                        <span class="text-[10px] font-bold text-primary tracking-widest uppercase">Infrastructure</span>
+                                        <h3 class="text-xl font-bold text-on-surface leading-tight">Edge Server - Node 04</h3>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded-full border border-green-500/20 backdrop-blur-md uppercase tracking-wider">Online</span>
+                                </div>
+                                <p class="text-sm text-on-surface-variant line-clamp-2">High-performance edge compute node located in Wing C, Rack 4. Currently handling real-time asset tracking telemetry.</p>
+                                <div class="flex items-center gap-4 text-xs font-mono text-on-surface-variant">
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]" data-icon="memory">memory</span> 94% CPU
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]" data-icon="thermostat">thermostat</span> 42°C
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-6 flex justify-end gap-3">
+                                <button class="text-on-surface-variant text-sm font-semibold hover:text-primary transition-colors">View Details</button>
+                                <button class="bg-primary/10 text-primary px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all">Quick Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add New Card Call-to-Action -->
+                <div class="bg-surface-container border-2 border-dashed border-outline-variant/20 rounded-xl flex flex-col items-center justify-center p-8 group hover:border-primary/40 hover:bg-surface-container-low transition-all cursor-pointer">
+                    <div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary-container transition-all">
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary-container" data-icon="add_circle">add_circle</span>
+                    </div>
+                    <h3 class="text-on-surface font-bold">Add New Asset</h3>
+                    <p class="text-xs text-on-surface-variant mt-2 text-center">Scan QR or enter serial number to curate new hardware.</p>
+                </div>
+            </section>
+        </div>
+        <!-- Modal Placeholder (Hidden by default, structure preserved) -->
+        <div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" id="quick-assign-modal">
+            <div class="absolute inset-0 bg-surface/80 backdrop-blur-sm"></div>
+            <div class="relative bg-surface-container-highest w-full max-w-md rounded-xl shadow-2xl p-6 space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-on-surface">Quick Assign</h2>
+                    <button class="text-on-surface-variant hover:text-on-surface">
+                        <span class="material-symbols-outlined" data-icon="close">close</span>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-on-surface-variant uppercase">Select User</label>
+                        <div class="relative">
+                            <select class="w-full bg-surface-container border-0 rounded-lg py-3 px-4 text-on-surface appearance-none">
+                                <option>Search for user...</option>
+                                <option>Jane Doe (Engineering)</option>
+                                <option>Mark Smith (Creative)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="w-full bg-primary-container text-on-primary-container font-bold py-3 rounded-xl hover:opacity-90 transition-all">Confirm Assignment</button>
+                </div>
+            </div>
+        </div>
+        <!-- BottomNavBar (Shared Component) -->
+        <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center p-3 pb-safe bg-[#171f33]/90 backdrop-blur-md fixed bottom-0 w-full rounded-t-2xl z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] border-t border-[#f97316]/10">
+            <a class="flex flex-col items-center justify-center text-[#e0c0b1] active:bg-[#222a3d] font-['Inter'] text-[10px]" href="#">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+                <span>Home</span>
+            </a>
+            <!-- ACTIVE: Assets -->
+            <a class="flex flex-col items-center justify-center bg-[#f97316] text-[#0b1326] rounded-xl px-3 py-1 font-['Inter'] text-[10px]" href="#">
+                <span class="material-symbols-outlined" data-icon="inventory" style="font-variation-settings: 'FILL' 1;">inventory</span>
+                <span>Assets</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-[#e0c0b1] active:bg-[#222a3d] font-['Inter'] text-[10px]" href="#">
+                <span class="material-symbols-outlined" data-icon="layers">layers</span>
+                <span>Rooms</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-[#e0c0b1] active:bg-[#222a3d] font-['Inter'] text-[10px]" href="#">
+                <span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+                <span>Tasks</span>
+            </a>
+        </nav>
+    </main>
+</div>
+</body></html>

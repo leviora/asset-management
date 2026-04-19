@@ -1,331 +1,231 @@
 <!DOCTYPE html>
+<html class="dark" lang="en">
 
-<html class="light" lang="en"><head>
+<head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Assets Management - The Curator</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Public+Sans:wght@400;500;600&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface-container-lowest": "#ffffff",
-              "tertiary": "#0a0500",
-              "on-secondary-container": "#672c00",
-              "on-secondary": "#ffffff",
-              "tertiary-container": "#2a1c00",
-              "error-container": "#ffdad6",
-              "tertiary-fixed": "#ffdea4",
-              "on-secondary-fixed": "#331200",
-              "on-error-container": "#93000a",
-              "secondary-fixed": "#ffdbc9",
-              "surface-tint": "#4d5f7d",
-              "surface-variant": "#e0e3e6",
-              "surface-container-low": "#f2f4f7",
-              "on-surface-variant": "#44474d",
-              "background": "#f7f9fc",
-              "on-primary-fixed-variant": "#364764",
-              "secondary-container": "#fc8a40",
-              "primary-fixed": "#d6e3ff",
-              "primary": "#000615",
-              "outline": "#75777e",
-              "secondary-fixed-dim": "#ffb68d",
-              "tertiary-fixed-dim": "#f4be4e",
-              "inverse-on-surface": "#eff1f4",
-              "secondary": "#9b4500",
-              "on-primary-container": "#7587a7",
-              "outline-variant": "#c4c6ce",
-              "surface-dim": "#d8dadd",
-              "on-secondary-fixed-variant": "#763300",
-              "on-error": "#ffffff",
-              "surface-bright": "#f7f9fc",
-              "on-tertiary": "#ffffff",
-              "inverse-primary": "#b5c7ea",
-              "surface-container": "#eceef1",
-              "inverse-surface": "#2d3133",
-              "primary-fixed-dim": "#b5c7ea",
-              "surface-container-highest": "#e0e3e6",
-              "on-tertiary-fixed-variant": "#5d4200",
-              "on-primary": "#ffffff",
-              "on-tertiary-fixed": "#261900",
-              "on-tertiary-container": "#ad7f0b",
-              "error": "#ba1a1a",
-              "surface-container-high": "#e6e8eb",
-              "on-surface": "#191c1e",
-              "primary-container": "#0b1f3a",
-              "on-primary-fixed": "#071c36",
-              "on-background": "#191c1e",
-              "surface": "#f7f9fc"
-            },
-            fontFamily: {
-              "headline": ["Manrope"],
-              "body": ["Public Sans"],
-              "label": ["Inter"]
-            },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-          },
-        },
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The Curator | Assets</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            font-family: 'Inter', sans-serif;
         }
-        .glass-header {
-            background: rgba(247, 249, 252, 0.8);
-            backdrop-filter: blur(20px);
+
+        .glass {
+            background: rgba(11, 19, 38, 0.7);
+            backdrop-filter: blur(12px);
         }
     </style>
-    <style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
 </head>
-<body class="bg-background font-body text-on-background min-h-screen">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-40 flex justify-between items-center px-6 py-4 glass-header">
-    <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
-        <h1 class="font-headline font-black text-primary uppercase tracking-widest text-2xl">The Curator</h1>
-    </div>
-    <div class="flex items-center gap-6">
-        <nav class="hidden md:flex gap-8">
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="/">Dashboard</a>
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-primary hover:opacity-80 transition-opacity border-b-2 border-secondary-container pb-1" href="/assetsList.html">Assets</a>
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="#">Rooms</a>
-            <a class="font-label font-bold text-xs uppercase tracking-widest text-slate-500 hover:opacity-80 transition-opacity" href="#">Assignments</a>
+
+<body class="min-h-screen">
+
+<div class="flex">
+
+    <!-- SIDEBAR -->
+    <aside class="hidden md:flex flex-col w-64 p-6 bg-[#0b1326] border-r border-white/5 shadow-[0_0_40px_rgba(0,0,0,0.4)]">
+        <h1 class="text-xl font-bold text-orange-400 mb-8">The Curator</h1>
+
+        <nav class="space-y-2">
+            <a class="flex items-center gap-3 px-4 py-2 hover:bg-[#171f33] rounded shadow-md">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+
+            <a class="flex items-center gap-3 px-4 py-2 bg-[#171f33] text-orange-300 rounded shadow-md">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Assets
+            </a>
+
+            <a class="flex items-center gap-3 px-4 py-2 hover:bg-[#171f33] rounded shadow-md">
+                <span class="material-symbols-outlined">meeting_room</span>
+                Rooms
+            </a>
         </nav>
-        <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
-            <img alt="Administrator" data-alt="User profile avatar icon in circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAddG-w0j-TD9F_Sl6-jdS8ET0aSDzk4U86hG_eYsXFXgpTPr37akQ21S74d6RXHm5A7vbbW3-ZX-oOg_xYbBamuje7aMhBq60nv1X8RlXjnJ7pqT399mrwg5Ov-eo5aONvcqV1jTvPQUsP_CSYJT3znWAnXjiFCWyAdwtgszq9QZJvA1OfBWzO-eqRGgZOStV7VbHD90CuP45o-edf1miAwHXaHw962ize6jo9PIrPBvM9L5n1x3ityCFpJi8inBtxkkBuVkTSHHk"/>
-        </div>
-    </div>
-</header>
-<!-- SideNav (Desktop Only) -->
-<aside class="fixed inset-y-0 left-0 z-50 hidden lg:flex flex-col p-4 bg-surface-container-low rounded-r-3xl h-full w-72 shadow-2xl shadow-blue-900/10 mt-20">
-    <div class="p-6 mb-4">
-        <div class="flex items-center gap-4 mb-2">
-            <div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center">
-                <span class="material-symbols-outlined text-white" data-icon="school">school</span>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 px-10 py-14 space-y-20 max-w-7xl mx-auto">
+
+        <!-- TOP BAR -->
+        <div class="flex justify-between items-center glass p-4 rounded-xl shadow-lg">
+
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-orange-400">inventory</span>
+                <h2 class="text-2xl font-bold">Inventory</h2>
             </div>
-            <div>
-                <h2 class="font-headline font-bold text-primary leading-tight">Academic Curator</h2>
-                <p class="font-body text-xs text-on-surface-variant">Institutional Admin</p>
-            </div>
-        </div>
-    </div>
-    <nav class="flex flex-col gap-2">
-        <a class="flex items-center gap-4 text-slate-600 p-4 hover:bg-white/50 transition-colors rounded-xl" href="#">
-            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-            <span class="font-body font-medium text-sm">Dashboard</span>
-        </a>
-        <a class="flex items-center gap-4 bg-white text-primary rounded-xl p-4 shadow-sm translate-x-1 transition-transform" href="#">
-            <span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
-            <span class="font-body font-medium text-sm">Assets</span>
-        </a>
-        <a class="flex items-center gap-4 text-slate-600 p-4 hover:bg-white/50 transition-colors rounded-xl" href="#">
-            <span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
-            <span class="font-body font-medium text-sm">Rooms</span>
-        </a>
-        <a class="flex items-center gap-4 text-slate-600 p-4 hover:bg-white/50 transition-colors rounded-xl" href="#">
-            <span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
-            <span class="font-body font-medium text-sm">Assignments</span>
-        </a>
-    </nav>
-    <div class="mt-auto p-4 text-[10px] text-slate-400 font-label tracking-widest uppercase">
-        System Version v1.0.4
-    </div>
-</aside>
-<!-- Main Content -->
-<main class="pt-24 pb-32 lg:ml-80 px-6 lg:px-12 max-w-7xl">
-    <!-- Hero Header Section -->
-    <section class="mb-12">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-                <h2 class="font-headline font-extrabold text-5xl text-primary tracking-tighter mb-2">Inventory Collection</h2>
-                <p class="text-on-surface-variant text-lg max-w-xl">Curating the technological foundation of academic excellence. Manage, track, and deploy school hardware with intentionality.</p>
-            </div>
-            <!-- Search Bar Container -->
-            <div class="relative w-full md:w-96">
-                <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+
+            <div class="flex items-center gap-4">
+
+                <!-- SEARCH -->
+                <div class="flex items-center gap-3">
+
+                    <!-- search -->
+                    <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400">
+            search
+        </span>
+                        <input
+                                id="search-input"
+                                class="bg-[#171f33] pl-10 pr-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-orange-400"
+                                placeholder="Search serial..."
+                        />
+                    </div>
+
+                    <!-- status filter -->
+                    <select
+                            id="status-filter"
+                            class="bg-[#171f33] px-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-orange-400"
+                    >
+                        <option value="">All Status</option>
+                        <option value="AVAILABLE">Available</option>
+                        <option value="IN_USE">In Use</option>
+                        <option value="MAINTENANCE">Maintenance</option>
+                        <option value="BROKEN">Broken</option>
+                    </select>
+
+                    <!-- type filter -->
+                    <select
+                            id="type-filter"
+                            class="bg-[#171f33] px-4 py-2 rounded-lg text-sm outline-none focus:ring-2 focus:ring-orange-400"
+                    >
+                        <option value="">All Types</option>
+                    </select>
+
+                    <button
+                            id="reset-filters"
+                            class="bg-[#171f33] px-4 py-2 rounded-lg text-sm hover:bg-orange-500 hover:text-black transition"
+                    >
+                        Reset
+                    </button>
+
                 </div>
-                <input class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/5 transition-all font-body text-sm" placeholder="Search serials, models, or tags..." type="text"/>
-            </div>
-        </div>
-    </section>
-    <!-- Stats Grid (Bento Style) -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
-            <div class="relative z-10">
-                <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">Total Assets</span>
 
-                <span id="total-assets" class="font-headline font-black text-4xl text-primary">0</span>
-            </div>
-            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined text-9xl" data-icon="devices">devices</span>
-            </div>
-        </div>
-        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
-            <div class="relative z-10">
-                <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">In Use</span>
+                <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-orange-400">
+                    notifications
+                </span>
 
-                <span id="in-use-assets" class="font-headline font-black text-4xl text-secondary">0</span>
-            </div>
-            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined text-9xl" data-icon="check_circle">check_circle</span>
-            </div>
-        </div>
-        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] relative overflow-hidden group">
-            <div class="relative z-10">
-                <span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 block">Maintenance</span>
-
-                <span id="maintenance-assets" class="font-headline font-black text-4xl text-on-tertiary-container">0</span>
-            </div>
-            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined text-9xl" data-icon="build">build</span>
-            </div>
-        </div>
-    </section>
-    <!-- Asset Grid -->
-    <section class="space-y-6">
-        <div class="flex items-center justify-between">
-            <h3 class="font-headline font-bold text-xl text-primary">Active Catalog</h3>
-            <div class="flex gap-2">
-                <button class="bg-surface-container-high p-2 rounded-lg text-primary hover:bg-surface-container-highest transition-colors">
-                    <span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                <button id="add-asset-btn"
+                        class="bg-orange-500 px-4 py-2 rounded-lg text-black font-semibold hover:scale-105 transition">
+                    + Add
                 </button>
-                <button class="bg-surface-container-high p-2 rounded-lg text-primary hover:bg-surface-container-highest transition-colors">
-                    <span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
-                </button>
+
             </div>
         </div>
-        <!-- Asset Cards (Asymmetric/Editorial Style) -->
-        <div id="assets-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
-            <!-- Card 1 -->
-<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
-<!--                <div class="flex justify-between items-start mb-6">-->
-<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
-<!--                        <span class="material-symbols-outlined text-3xl" data-icon="laptop_mac">laptop_mac</span>-->
-<!--                    </div>-->
-<!--                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">MacBook Pro M2</h4>-->
-<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-X991</p>-->
-<!--                    <div class="flex items-center gap-2 mb-6">-->
-<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
-<!--                        <span class="text-sm font-medium text-on-surface-variant">Computing</span>-->
-<!--                    </div>-->
-<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
-<!--                        <span class="text-xs text-outline">Assigned: Prof. Aris</span>-->
-<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+        <!-- STATS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
 
-            <!-- Card 2 -->
-<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
-<!--                <div class="flex justify-between items-start mb-6">-->
-<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
-<!--                        <span class="material-symbols-outlined text-3xl" data-icon="tablet_android">tablet_android</span>-->
-<!--                    </div>-->
-<!--                    <span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-widest rounded-full">Available</span>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">iPad Air (5th Gen)</h4>-->
-<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2023-P442</p>-->
-<!--                    <div class="flex items-center gap-2 mb-6">-->
-<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
-<!--                        <span class="text-sm font-medium text-on-surface-variant">Mobile Devices</span>-->
-<!--                    </div>-->
-<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
-<!--                        <span class="text-xs text-outline">Location: Storage A</span>-->
-<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-            <!-- Card 3 -->
-<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
-<!--                <div class="flex justify-between items-start mb-6">-->
-<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
-<!--                        <span class="material-symbols-outlined text-3xl" data-icon="cast_for_education">cast_for_education</span>-->
-<!--                    </div>-->
-<!--                    <span class="px-4 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Maintenance</span>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Smart Projector 4K</h4>-->
-<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2022-PR02</p>-->
-<!--                    <div class="flex items-center gap-2 mb-6">-->
-<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
-<!--                        <span class="text-sm font-medium text-on-surface-variant">Audio Visual</span>-->
-<!--                    </div>-->
-<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
-<!--                        <span class="text-xs text-outline">Issue: Bulb Failure</span>-->
-<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-            <!-- Card 4 -->
-<!--            <div class="group bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_40px_rgba(7,28,54,0.06)] hover:-translate-y-1 transition-all">-->
-<!--                <div class="flex justify-between items-start mb-6">-->
-<!--                    <div class="w-16 h-16 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container">-->
-<!--                        <span class="material-symbols-outlined text-3xl" data-icon="desktop_windows">desktop_windows</span>-->
-<!--                    </div>-->
-<!--                    <span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">In Use</span>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <h4 class="font-headline font-bold text-lg text-primary mb-1">Dell OptiPlex 7000</h4>-->
-<!--                    <p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-4">SN: EDU-2021-DT18</p>-->
-<!--                    <div class="flex items-center gap-2 mb-6">-->
-<!--                        <span class="material-symbols-outlined text-sm text-outline" data-icon="category">category</span>-->
-<!--                        <span class="text-sm font-medium text-on-surface-variant">Workstation</span>-->
-<!--                    </div>-->
-<!--                    <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">-->
-<!--                        <span class="text-xs text-outline">Assigned: Lab 402</span>-->
-<!--                        <button class="text-primary hover:underline font-bold text-xs uppercase tracking-widest">Details</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!-- TOTAL -->
+            <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">
+                    Total
+                </p>
+                <p id="total-assets" class="text-4xl font-extrabold text-orange-400">
+                    0
+                </p>
+            </div>
+
+            <!-- IN USE -->
+            <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">
+                    In Use
+                </p>
+                <p id="in-use-assets" class="text-4xl font-extrabold text-orange-400">
+                    0
+                </p>
+            </div>
+
+            <!-- MAINTENANCE -->
+            <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">
+                    Maintenance
+                </p>
+                <p id="maintenance-assets" class="text-4xl font-extrabold text-orange-400">
+                    0
+                </p>
+            </div>
 
         </div>
-    </section>
-</main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-xl shadow-[0_-12px_40px_rgba(7,28,54,0.06)] rounded-t-3xl">
-    <a class="flex flex-col items-center justify-center text-slate-400 p-3" href="#">
-        <span class="material-symbols-outlined" data-icon="home">home</span>
-        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Home</span>
-    </a>
-    <a class="flex flex-col items-center justify-center bg-primary-container text-white rounded-2xl p-3 scale-90" href="#">
-        <span class="material-symbols-outlined" data-icon="category" style="font-variation-settings: 'FILL' 1;">category</span>
-        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Assets</span>
-    </a>
-    <a class="flex flex-col items-center justify-center text-slate-400 p-3" href="#">
-        <span class="material-symbols-outlined" data-icon="door_front">door_front</span>
-        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Rooms</span>
-    </a>
-    <a class="flex flex-col items-center justify-center text-slate-400 p-3" href="#">
-        <span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
-        <span class="font-label font-bold text-[10px] uppercase tracking-tighter mt-1">Tasks</span>
-    </a>
-</nav>
-<!-- FAB (Floating Action Button) -->
-<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-[#FF8C42] to-secondary-container text-white shadow-2xl flex items-center justify-center active:scale-95 transition-all group">
-    <span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
-    <!-- Optional Label for Desktop Hover -->
-    <span class="absolute right-full mr-4 bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block uppercase tracking-widest">Add New Asset</span>
-</button>
 
-<!--<script src="/js/app.js"></script>-->
+        <!-- GRID -->
+        <div id="assets-container"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+        </div>
+
+    </main>
+</div>
+
+<!-- ASSIGN MODAL -->
+<div id="quick-assign-modal"
+     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+
+    <div class="bg-[#171f33] p-6 rounded-xl w-80">
+        <h3 class="mb-4 font-bold">Assign to room</h3>
+
+        <select id="quick-room-select"
+                class="w-full p-2 mb-4 bg-[#0b1326] border border-gray-600 rounded">
+        </select>
+
+        <div class="flex justify-end gap-2">
+            <button id="quick-assign-cancel">Cancel</button>
+            <button id="quick-assign-confirm"
+                    class="bg-orange-500 px-3 py-1 rounded text-black">
+                Assign
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ADD ASSET MODAL -->
+<div id="asset-modal"
+     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+
+    <div class="bg-[#171f33] p-6 rounded-xl w-96 space-y-4">
+
+        <h3 class="font-bold text-lg">Add Asset</h3>
+
+        <select id="asset-model-select"
+                class="w-full p-2 bg-[#0b1326] border border-gray-600 rounded"></select>
+
+
+        <select id="asset-type-select"
+                class="w-full p-2 bg-[#0b1326] border border-gray-600 rounded">
+        </select>
+
+        <input id="serial-number"
+               placeholder="Serial number"
+               class="w-full p-2 bg-[#0b1326] border border-gray-600 rounded"/>
+
+        <div class="flex justify-end gap-2">
+            <button id="close-modal">Cancel</button>
+            <button id="submit-asset"
+                    class="bg-orange-500 px-3 py-1 rounded text-black">
+                Create
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="toast"
+     class="fixed bottom-6 right-6 px-6 py-3 rounded-xl shadow-lg opacity-0 transition-opacity duration-300 text-white bg-orange-500">
+    Message
+</div>
+
 <script type="module" src="/js/main.js"></script>
-</body></html>
+
+</body>
+</html>

@@ -12,7 +12,7 @@ export function initAddAssetModal() {
     const typeSelect = document.getElementById("asset-type-select");
     const serialInput = document.getElementById("serial-number");
 
-    if (!modal) return; // ważne – żeby nie crashowało na innych stronach
+    if (!modal) return;
 
     // OPEN
     openBtn?.addEventListener("click", async () => {

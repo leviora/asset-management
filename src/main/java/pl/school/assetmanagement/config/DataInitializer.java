@@ -21,7 +21,6 @@ import pl.school.assetmanagement.domain.model.enums.RoomType;
 public class DataInitializer {
 
     private final AssetModelRepository assetModelRepository;
-    private final CreateAsset createAsset;
     private final AssetRepository assetRepository;
     private final RoomRepository roomRepository;
 
@@ -33,6 +32,24 @@ public class DataInitializer {
                 return;
             }
 
+            // --- ROOMS ---
+            Room room101 = roomRepository.save(
+                    Room.create("101", "Computer room", RoomType.COMPUTER_LAB)
+            );
+
+            Room room117 = roomRepository.save(
+                    Room.create("117", "Lecture room", RoomType.LECTURE)
+            );
+
+            Room room119 = roomRepository.save(
+                    Room.create("119", "Computer room", RoomType.COMPUTER_LAB)
+            );
+
+            Room storage = roomRepository.save(
+                    Room.create("108", "Storage room", RoomType.STORAGE)
+            );
+
+            // --- MODELS ---
             AssetModel mac = assetModelRepository.save(
                     AssetModel.createNew("Apple", "MacBook Pro M2", AssetType.COMPUTER)
             );
@@ -45,13 +62,15 @@ public class DataInitializer {
                     AssetModel.createNew("Epson", "Projector X200", AssetType.PROJECTOR)
             );
 
+
+
             assetRepository.save(Asset.restore(
                     AssetId.newAssetId(),
                     mac.getId(),
                     AssetType.COMPUTER,
                     AssetStatus.AVAILABLE,
                     "SN-MAC-001",
-                    null
+                    storage.getRoomId()
             ));
 
             assetRepository.save(Asset.restore(
@@ -60,7 +79,7 @@ public class DataInitializer {
                     AssetType.COMPUTER,
                     AssetStatus.IN_USE,
                     "SN-MAC-002",
-                    null
+                    room101.getRoomId()
             ));
 
             assetRepository.save(Asset.restore(
@@ -69,7 +88,7 @@ public class DataInitializer {
                     AssetType.COMPUTER,
                     AssetStatus.MAINTENANCE,
                     "SN-MAC-003",
-                    null
+                    storage.getRoomId()
             ));
 
             assetRepository.save(Asset.restore(
@@ -78,7 +97,7 @@ public class DataInitializer {
                     AssetType.COMPUTER,
                     AssetStatus.AVAILABLE,
                     "SN-DELL-001",
-                    null
+                    storage.getRoomId()
             ));
 
             assetRepository.save(Asset.restore(
@@ -87,7 +106,7 @@ public class DataInitializer {
                     AssetType.COMPUTER,
                     AssetStatus.IN_USE,
                     "SN-DELL-002",
-                    null
+                    room119.getRoomId()
             ));
 
             assetRepository.save(Asset.restore(
@@ -96,23 +115,8 @@ public class DataInitializer {
                     AssetType.PROJECTOR,
                     AssetStatus.MAINTENANCE,
                     "SN-PROJ-001",
-                    null
+                    storage.getRoomId()
             ));
-
-
-            {
-
-                if (!roomRepository.findAll().isEmpty()) return;
-
-                Room room101 = Room.create("101", "Computer room", RoomType.COMPUTER_LAB);
-                Room room117 = Room.create("117", "Lecture room", RoomType.LECTURE);
-                Room room119 = Room.create("119", "Computer room", RoomType.COMPUTER_LAB);
-
-                roomRepository.save(room101);
-                roomRepository.save(room117);
-                roomRepository.save(room119);
-            };
-
         };
     }
 }

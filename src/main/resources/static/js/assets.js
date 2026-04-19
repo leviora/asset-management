@@ -6,10 +6,19 @@ import {
     markAssetBroken,
     sendAssetToMaintenance,
     removeAssetFromRoom,
-    assignAssetToRoom
+    assignAssetToRoom,
+    markAssetAvailable
 } from "./api.js";
 import { loadRooms } from "./rooms.js";
 
+let selectedAssetId = null;
+
+const baseBtnClass = `
+    px-3 py-1 text-xs rounded
+    bg-orange-500/10 text-orange-300
+    hover:bg-orange-500 hover:text-black
+    transition
+`;
 
 export async function getAssetsData() {
     try {
@@ -20,12 +29,12 @@ export async function getAssetsData() {
     }
 }
 
-export async function loadAssets() {
+export async function loadAssets(filters = {}) {
     try {
-        const assets = await fetchAssets();
-
+        const assets = await fetchAssets(filters);
 
         renderStats(assets);
+
         const rooms = await loadRooms();
 
         const container = document.getElementById("assets-container");
@@ -45,24 +54,16 @@ export async function loadAssets() {
 function renderStats(assets) {
     const totalEl = document.getElementById("total-assets");
     const inUseEl = document.getElementById("in-use-assets");
+    const maintenanceEl = document.getElementById("maintenance-assets");
 
     const total = assets.length;
     const inUse = assets.filter(a => a.status === "IN_USE").length;
+    const maintenance = assets.filter(a => a.status === "MAINTENANCE").length;
 
     if (totalEl) totalEl.textContent = total;
     if (inUseEl) inUseEl.textContent = inUse;
+    if (maintenanceEl) maintenanceEl.textContent = maintenance;
 }
-
-function getStatusClass(status) {
-    switch (status) {
-        case "IN_USE": return "bg-green-50 text-green-700 border border-green-200";
-        case "AVAILABLE": return "bg-blue-50 text-blue-700 border border-blue-200";
-        case "MAINTENANCE": return "bg-yellow-50 text-yellow-700 border border-yellow-200";
-        case "BROKEN": return "bg-red-50 text-red-700 border border-red-200";
-        default: return "bg-gray-50 text-gray-600 border border-gray-200";
-    }
-}
-
 
 function renderAssets(container, assets, rooms) {
     container.innerHTML = "";
@@ -76,71 +77,96 @@ function renderAssets(container, assets, rooms) {
         const card = document.createElement("div");
         const room = rooms.find(r => r.roomId === asset.roomId);
 
-        card.className = `
-            p-6 rounded-2xl bg-white shadow-sm hover:shadow-lg border border-gray-100 transition
+        const statusStyle = `
+            px-3 py-1 text-xs font-semibold rounded-full
+            bg-orange-500/10 text-orange-300 border border-orange-500/20
         `;
+
+        const userBadge = asset.status === "IN_USE"
+            ? `
+            <div class="flex items-center gap-2 text-xs text-gray-400">
+                <div class="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center text-[10px]">
+                    U
+                </div>
+                <span>Assigned user</span>
+            </div>
+        `
+            : "";
 
         // --- ACTIONS ---
         let actions = "";
 
-        if (asset.status !== "BROKEN") {
+        if (asset.status === "AVAILABLE") {
             actions += `
-                <button data-action="broken" data-id="${asset.id}"
-                    class="text-xs px-3 py-1 bg-red-100 text-red-700 rounded">
-                    Broken
+                <button data-action="assign-room" data-id="${asset.id}" class="${baseBtnClass}">
+                    Assign
                 </button>
-            `;
-        }
-
-        if (asset.status === "BROKEN") {
-            actions += `
-                <button data-action="maintenance" data-id="${asset.id}"
-                    class="text-xs px-3 py-1 bg-yellow-100 text-yellow-700 rounded">
+                <button data-action="maintenance" data-id="${asset.id}" class="${baseBtnClass}">
                     Maintenance
                 </button>
             `;
         }
 
+        if (asset.status === "IN_USE") {
+            actions += `
+                <button data-action="assign-room" data-id="${asset.id}" class="${baseBtnClass}">
+                    Change Room
+                </button>
+                <button data-action="remove-room" data-id="${asset.id}" class="${baseBtnClass}">
+                    Unassign
+                </button>
+                <button data-action="maintenance" data-id="${asset.id}" class="${baseBtnClass}">
+                    Maintenance
+                </button>
+            `;
+        }
 
-if (asset.roomId) {
-    actions += `
-        <button data-action="remove-room" data-id="${asset.id}"
-            class="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded">
-            Unassign
-        </button>
-    `;
-} else {
-    actions += `
-        <button data-action="assign-room" data-id="${asset.id}"
-            class="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded">
-            Assign to room
-        </button>
-    `;
-}
+        if (asset.status === "MAINTENANCE") {
+            actions += `
+                <button data-action="available" data-id="${asset.id}" class="${baseBtnClass}">
+                    Available
+                </button>
+                <button data-action="broken" data-id="${asset.id}" class="${baseBtnClass}">
+                    Broken
+                </button>
+            `;
+        }
+
+        card.className = `
+            p-6 rounded-2xl
+            bg-gradient-to-br from-[#111827] to-[#1f2937]
+            border border-white/5
+            hover:border-orange-500/30
+            hover:shadow-[0_0_30px_rgba(249,115,22,0.15)]
+            transition-all duration-300
+            space-y-4
+        `;
 
         card.innerHTML = `
-            <div class="flex justify-between mb-3">
+            <div class="flex justify-between items-start">
+                <span class="${statusStyle}">
+                    ${asset.status.replace("_", " ")}
+                </span>
 
-<div class="text-[11px] text-gray-500 mb-1 uppercase tracking-wide">
-    Asset Status
-</div>
-
-<span class="${getStatusClass(asset.status)} px-2 py-0.5 text-[11px] font-semibold rounded-md inline-block">
-    ${asset.status.replace("_", " ")}
-</span>
-
+                <span class="material-symbols-outlined text-gray-500">
+                    inventory_2
+                </span>
             </div>
 
-            <h4 class="font-bold">${asset.assetType}</h4>
+            <div>
+                <h3 class="text-lg font-bold">${asset.assetType}</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    SN: ${asset.serialNumber || "N/A"}
+                </p>
+            </div>
 
-            <p class="text-xs text-gray-500 mb-2">
-                SN: ${asset.serialNumber || "N/A"}
-            </p>
-            <p class="text-xs text-gray-400">
-                Room: ${room ? room.number : "—"}
-            </p>
+            <div class="text-xs text-gray-500 flex">
+                Room: ${room?.number || "Storage"}
+            </div>
 
-            <div class="mt-4 flex gap-2 flex-wrap">
+            ${userBadge}
+
+            <div class="flex flex-wrap gap-2 pt-2">
                 ${actions}
             </div>
         `;
@@ -148,69 +174,98 @@ if (asset.roomId) {
         container.appendChild(card);
     });
 
-    // BROKEN
+    // --- ACTION HANDLERS ---
+
     container.querySelectorAll('[data-action="broken"]').forEach(btn => {
         btn.onclick = async () => {
             try {
                 await markAssetBroken(btn.dataset.id);
-                showToast("Marked as broken 🔧");
+                showToast("Asset marked as broken");
                 await loadAssets();
-            } catch (err) {
-                console.error(err);
-                showToast("Failed ❌", true);
+            } catch {
+                showToast("Failed", "error");
             }
         };
     });
 
-    // MAINTENANCE
     container.querySelectorAll('[data-action="maintenance"]').forEach(btn => {
         btn.onclick = async () => {
             try {
                 await sendAssetToMaintenance(btn.dataset.id);
-                showToast("Sent to maintenance 🛠️");
+                showToast("Sent to maintenance");
                 await loadAssets();
-            } catch (err) {
-                console.error(err);
-                showToast("Failed ❌", true);
+            } catch {
+                showToast("Failed", "error");
             }
         };
     });
 
-    // REMOVE
     container.querySelectorAll('[data-action="remove-room"]').forEach(btn => {
         btn.onclick = async () => {
             try {
                 await removeAssetFromRoom(btn.dataset.id);
-                showToast("Removed from room 📦");
+                showToast("Unassigned");
                 await loadAssets();
-            } catch (err) {
-                console.error(err);
-                showToast("Failed ❌", true);
+            } catch {
+                showToast("Failed", "error");
             }
         };
     });
 
-
-    // ASSIGN
     container.querySelectorAll('[data-action="assign-room"]').forEach(btn => {
+        btn.onclick = () => {
+            selectedAssetId = btn.dataset.id;
+
+            const modal = document.getElementById("quick-assign-modal");
+            const select = document.getElementById("quick-room-select");
+
+            select.innerHTML = `<option value="">Select room</option>`;
+
+            rooms.forEach(r => {
+                const option = document.createElement("option");
+                option.value = r.roomId;
+                option.textContent = r.number;
+                select.appendChild(option);
+            });
+
+            modal.classList.remove("hidden");
+        };
+    });
+
+    container.querySelectorAll('[data-action="available"]').forEach(btn => {
         btn.onclick = async () => {
             try {
-                const roomId = prompt("Enter room ID:");
-
-                if (!roomId) return;
-
-                await assignAssetToRoom(btn.dataset.id, roomId);
-
-                showToast("Assigned to room 🏫");
-
+                await markAssetAvailable(btn.dataset.id);
+                showToast("Now available");
                 await loadAssets();
-
-            } catch (err) {
-                console.error(err);
-                showToast("Assign failed ❌", true);
+            } catch {
+                showToast("Failed", "error");
             }
         };
     });
 
+    const confirmBtn = document.getElementById("quick-assign-confirm");
+    const cancelBtn = document.getElementById("quick-assign-cancel");
 
+    confirmBtn.onclick = async () => {
+        const roomId = document.getElementById("quick-room-select").value;
+
+        if (!roomId) {
+            showToast("Select room", "warning");
+            return;
+        }
+
+        try {
+            await assignAssetToRoom(selectedAssetId, roomId);
+            document.getElementById("quick-assign-modal").classList.add("hidden");
+            showToast("Assigned");
+            await loadAssets();
+        } catch {
+            showToast("Failed", "error");
+        }
+    };
+
+    cancelBtn.onclick = () => {
+        document.getElementById("quick-assign-modal").classList.add("hidden");
+    };
 }

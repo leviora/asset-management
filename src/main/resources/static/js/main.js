@@ -1,17 +1,19 @@
 // main.js
 
 import { loadAssets, getAssetsData } from "./assets.js";
-import { fetchAssetModels, createAsset } from "./api.js";
+import { fetchAssetModels, createAsset, ASSET_TYPES } from "./api.js";
 import { showToast } from "./ui.js";
 import { loadRooms } from "./rooms.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     await loadAssets();
+    await loadModels();
     setupModal();
     setupAssignment();
+    loadTypes();
+    setupFilters();
 });
 
-// --- CREATE ASSET MODAL ---
 
 function setupModal() {
     const openBtn = document.getElementById("add-asset-btn");
@@ -21,12 +23,20 @@ function setupModal() {
 
     if (!openBtn || !modal) return;
 
+    function resetModal() {
+        document.getElementById("asset-model-select").value = "";
+        document.getElementById("asset-type-select").value = "";
+        document.getElementById("serial-number").value = "";
+    }
+
     openBtn.addEventListener("click", async () => {
+        resetModal();
         modal.classList.remove("hidden");
         await loadModels();
     });
 
     closeBtn.addEventListener("click", () => {
+        resetModal();
         modal.classList.add("hidden");
     });
 
@@ -51,6 +61,19 @@ async function loadModels() {
     } catch (e) {
         showToast("Failed to load models ❌", true);
     }
+}
+
+function loadTypes() {
+    const select = document.getElementById("asset-type-select");
+
+    select.innerHTML = `<option value="">Select asset type</option>`;
+
+    ASSET_TYPES.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        select.appendChild(option);
+    });
 }
 
 async function handleSubmit() {
@@ -152,4 +175,47 @@ async function handleAssignment() {
     } catch (e) {
         showToast("Assign failed ❌", true);
     }
+}
+
+function setupFilters() {
+    const searchInput = document.getElementById("search-input");
+    const statusFilter = document.getElementById("status-filter");
+    const typeFilter = document.getElementById("type-filter");
+    const resetBtn = document.getElementById("reset-filters");
+
+    ASSET_TYPES.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        typeFilter.appendChild(option);
+    });
+
+    async function applyFilters() {
+        await loadAssets({
+            serialNumber: searchInput.value.trim(),
+            status: statusFilter.value,
+            assetType: typeFilter.value
+        });
+    }
+
+    let timeout;
+
+    searchInput.addEventListener("input", () => {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+            applyFilters();
+        }, 400);
+    });
+
+    statusFilter.addEventListener("change", applyFilters);
+    typeFilter.addEventListener("change", applyFilters);
+
+    resetBtn.addEventListener("click", async () => {
+        searchInput.value = "";
+        statusFilter.value = "";
+        typeFilter.value = "";
+
+        await loadAssets();
+    });
 }

@@ -1,16 +1,19 @@
 package pl.school.assetmanagement.adapter.in.rest.asset;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.CreateAssetRequest;
-import pl.school.assetmanagement.adapter.out.persistence.assetmodel.AssetModelJpaRepository;
 import pl.school.assetmanagement.application.port.in.*;
 import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
 import pl.school.assetmanagement.domain.model.AssetModelId;
 import pl.school.assetmanagement.domain.model.RoomId;
+import pl.school.assetmanagement.domain.model.enums.AssetStatus;
+import pl.school.assetmanagement.domain.model.enums.AssetType;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,15 +31,22 @@ public class AssetController {
     private final AssetWebMapper webMapper;
     private final GetAllAssets getAllAssets;
     private final AssignAssetToRoom assignAssetToRoom;
+    private final MarkAssetAvailable markAssetAvailable;
 
     @GetMapping
-    public ResponseEntity<List<AssetResponse>> getAll() {
-
+    public ResponseEntity<Page<AssetResponse>> getAll(
+            @RequestParam(required = false) AssetStatus status,
+            @RequestParam(required = false) AssetType assetType,
+            @RequestParam(required = false) String serialNumber,
+            Pageable pageable
+    ) {
         return ResponseEntity.ok(
-                getAllAssets.getAll()
-                        .stream()
-                        .map(webMapper::toResponse)
-                        .toList()
+                getAllAssets.getAll(
+                        status,
+                        assetType,
+                        serialNumber,
+                        pageable
+                ).map(webMapper::toResponse)
         );
     }
 
@@ -87,6 +97,12 @@ public class AssetController {
     @PatchMapping("/{id}/assign-room/{roomId}")
     public ResponseEntity<Void> assignToRoom(@PathVariable UUID id, @PathVariable UUID roomId) {
         assignAssetToRoom.assign(new AssetId(id), new RoomId(roomId));
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/available")
+    public ResponseEntity<Void> markAvailable(@PathVariable UUID id) {
+        markAssetAvailable.mark(new AssetId(id));
         return ResponseEntity.noContent().build();
     }
 }

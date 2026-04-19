@@ -4,14 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.school.assetmanagement.application.port.in.RemoveAssetFromRoom;
 import pl.school.assetmanagement.application.port.out.AssetRepository;
+import pl.school.assetmanagement.application.port.out.RoomRepository;
 import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
+import pl.school.assetmanagement.domain.model.Room;
 
 @Service
 @RequiredArgsConstructor
 public class RemoveAssetFromRoomService implements RemoveAssetFromRoom {
 
     private final AssetRepository assetRepository;
+    private final RoomRepository roomRepository;
 
     @Override
     public void remove(AssetId assetId) {
@@ -19,7 +22,10 @@ public class RemoveAssetFromRoomService implements RemoveAssetFromRoom {
         Asset asset = assetRepository.findById(assetId)
                 .orElseThrow(() -> new IllegalArgumentException("Asset not found"));
 
-        asset.removeFromRoom();
+        Room storage = roomRepository.findStorageRoom()
+                .orElseThrow(() -> new IllegalStateException("Storage room not found"));
+
+        asset.removeFromRoom(storage.getRoomId());
 
         assetRepository.save(asset);
     }

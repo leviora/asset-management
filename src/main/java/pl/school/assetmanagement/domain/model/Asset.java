@@ -30,12 +30,29 @@ public class Asset {
         this.roomId = roomId;
     }
 
-    public static Asset createNew(AssetModelId assetModelId, AssetType assetType) {
+    public static Asset createNew(
+            AssetModelId assetModelId,
+            AssetType assetType,
+            RoomId initialRoomId
+    ) {
         if (assetModelId == null) {
             throw new IllegalArgumentException("Asset Model id is required");
         }
+
+        if (initialRoomId == null) {
+            throw new IllegalArgumentException("Room is required");
+        }
+
         AssetType typeToUse = assetType != null ? assetType : AssetType.OTHER;
-        return new Asset(AssetId.newAssetId(), assetModelId, typeToUse, AssetStatus.AVAILABLE, null, null);
+
+        return new Asset(
+                AssetId.newAssetId(),
+                assetModelId,
+                typeToUse,
+                AssetStatus.AVAILABLE,
+                null,
+                initialRoomId
+        );
     }
 
     public void assignSerialNumber(String serialNumber) {
@@ -61,49 +78,52 @@ public class Asset {
         return new Asset(id, assetModelId, assetType, status, serialNumber, roomId);
     }
 
-    public void markAsBroken() {
-        if (this.status == AssetStatus.BROKEN) {
-            throw new IllegalStateException("Asset is already broken");
+    public void markAsBroken(RoomId storageId) {
+        if (this.status != AssetStatus.MAINTENANCE) {
+            throw new IllegalStateException("Asset must go through maintenance first");
         }
+
+        this.roomId = storageId;
         this.status = AssetStatus.BROKEN;
     }
 
-    public void sendToMaintenance() {
-        if (this.status == AssetStatus.BROKEN) {
-            this.status = AssetStatus.MAINTENANCE;
-            return;
+    public void sendToMaintenance(RoomId storageId) {
+        if (this.status != AssetStatus.IN_USE && this.status != AssetStatus.AVAILABLE) {
+            throw new IllegalStateException("Cannot send this asset to maintenance");
         }
-        throw new IllegalStateException("Only broken asset can be sent to maintenance");
+
+        this.roomId = storageId;
+        this.status = AssetStatus.MAINTENANCE;
     }
 
-    public void markAsAvailable() {
-        if (this.status == AssetStatus.MAINTENANCE) {
-            this.status = AssetStatus.AVAILABLE;
-            return;
+    public void markAsAvailable(RoomId storageId) {
+        if (this.status != AssetStatus.MAINTENANCE) {
+            throw new IllegalStateException("Only MAINTENANCE asset can be marked available");
         }
-        throw new IllegalStateException("Only asset from maintenance can be marked as available");
+
+        this.roomId = storageId;
+        this.status = AssetStatus.AVAILABLE;
     }
 
-    public void assignToRoom(RoomId roomId) {
-        if (this.status != AssetStatus.AVAILABLE) {
-            throw new IllegalStateException("Only available asset can be assigned to room");
+    public void assignToRoom(RoomId newRoomId) {
+        if (this.status != AssetStatus.AVAILABLE && this.status != AssetStatus.IN_USE) {
+            throw new IllegalStateException("Asset cannot be assigned in current state");
         }
-        if (roomId == null) {
+
+        if (newRoomId == null) {
             throw new IllegalArgumentException("Room cannot be null");
         }
-        if (this.roomId != null) {
-            throw new IllegalStateException("Asset already assigned to a room");
-        }
-        this.roomId = roomId;
-        this.status = AssetStatus.IN_USE;
 
+        this.roomId = newRoomId;
+        this.status = AssetStatus.IN_USE;
     }
 
-    public void removeFromRoom() {
-        if (this.roomId == null) {
-            throw new IllegalStateException("Asset is not assigned to any room");
+    public void removeFromRoom(RoomId storageId) {
+        if (this.status != AssetStatus.IN_USE) {
+            throw new IllegalStateException("Only IN_USE asset can be unassigned");
         }
-        this.roomId = null;
+
+        this.roomId = storageId;
         this.status = AssetStatus.AVAILABLE;
     }
 }
