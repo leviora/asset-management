@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetResponse;
+import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetStatsResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.CreateAssetRequest;
 import pl.school.assetmanagement.application.port.in.*;
 import pl.school.assetmanagement.domain.model.Asset;
@@ -32,6 +33,7 @@ public class AssetController {
     private final GetAllAssets getAllAssets;
     private final AssignAssetToRoom assignAssetToRoom;
     private final MarkAssetAvailable markAssetAvailable;
+    private final GetAssetStats getAssetStats;
 
     @GetMapping
     public ResponseEntity<Page<AssetResponse>> getAll(
@@ -104,5 +106,10 @@ public class AssetController {
     public ResponseEntity<Void> markAvailable(@PathVariable UUID id) {
         markAssetAvailable.mark(new AssetId(id));
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<AssetStatsResponse> getStats() {
+        return ResponseEntity.ok(getAssetStats.getStats());
     }
 }

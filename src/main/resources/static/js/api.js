@@ -3,20 +3,39 @@
 export async function fetchAssets(filters = {}) {
     const params = new URLSearchParams();
 
-    if (filters.serialNumber) params.append("serialNumber", filters.serialNumber);
-    if (filters.status) params.append("status", filters.status);
-    if (filters.assetType) params.append("assetType", filters.assetType);
+    if (filters.serialNumber) {
+        params.append("serialNumber", filters.serialNumber);
+    }
+
+    if (filters.status) {
+        params.append("status", filters.status);
+    }
+
+    if (filters.assetType) {
+        params.append("assetType", filters.assetType);
+    }
+
+    // 🔥 PAGINATION
+    params.append("page", filters.page ?? 0);
+    params.append("size", filters.size ?? 6);
+
+    // 🔥 SORTING
+    if (filters.sort) {
+        params.append("sort", filters.sort);
+    }
 
     const response = await fetch(`/api/assets?${params.toString()}`);
 
     if (!response.ok) {
         console.error("Assets fetch failed:", response.status);
-        return [];
+        return {
+            content: [],
+            totalPages: 0,
+            number: 0
+        };
     }
 
-    const data = await response.json();
-
-    return data.content ?? data;
+    return await response.json();
 }
 
 export async function fetchAssetModels() {
@@ -110,3 +129,13 @@ export const ASSET_TYPES = [
     "GRAPHICCARD",
     "OTHER"
 ];
+
+export async function fetchAssetStats() {
+    const response = await fetch("/api/assets/stats");
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch stats");
+    }
+
+    return await response.json();
+}

@@ -6,7 +6,11 @@ import { showToast } from "./ui.js";
 import { loadRooms } from "./rooms.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadAssets();
+    await loadAssets({
+        page: 0,
+        size: 6,
+        sort: "assetType,asc"
+    });
     await loadModels();
     setupModal();
     setupAssignment();

@@ -125,7 +125,7 @@
         </div>
 
         <!-- STATS -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-20">
 
             <!-- TOTAL -->
             <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
@@ -157,12 +157,52 @@
                 </p>
             </div>
 
+            <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">
+                    Available
+                </p>
+                <p id="available-assets" class="text-4xl font-extrabold text-orange-400">
+                    0
+                </p>
+            </div>
+
+            <div class="bg-[#111827] border border-white/5 p-6 rounded-xl text-center">
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">
+                    Broken
+                </p>
+                <p id="broken-assets" class="text-4xl font-extrabold text-orange-400">
+                    0
+                </p>
+            </div>
+
         </div>
 
         <!-- GRID -->
         <div id="assets-container"
              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
         </div>
+
+
+        <div class="flex items-center justify-center gap-4 mt-8">
+            <button
+                    id="prev-page"
+                    class="px-4 py-2 rounded bg-orange-500/10 text-orange-300 hover:bg-orange-500 hover:text-black transition"
+            >
+                Previous
+            </button>
+
+            <span id="page-info" class="text-sm text-gray-300">
+        Page 1
+    </span>
+
+            <button
+                    id="next-page"
+                    class="px-4 py-2 rounded bg-orange-500/10 text-orange-300 hover:bg-orange-500 hover:text-black transition"
+            >
+                Next
+            </button>
+        </div>
+
 
     </main>
 </div>

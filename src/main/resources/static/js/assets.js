@@ -7,9 +7,11 @@ import {
     sendAssetToMaintenance,
     removeAssetFromRoom,
     assignAssetToRoom,
-    markAssetAvailable
+    markAssetAvailable,
+    fetchAssetStats,
 } from "./api.js";
 import { loadRooms } from "./rooms.js";
+
 
 let selectedAssetId = null;
 
@@ -31,9 +33,11 @@ export async function getAssetsData() {
 
 export async function loadAssets(filters = {}) {
     try {
-        const assets = await fetchAssets(filters);
+        const pageData = await fetchAssets(filters);
 
-        renderStats(assets);
+        const assets = pageData.content || [];
+
+        await renderStats();
 
         const rooms = await loadRooms();
 
@@ -41,6 +45,8 @@ export async function loadAssets(filters = {}) {
         if (container) {
             renderAssets(container, assets, rooms);
         }
+
+        renderPagination(pageData, filters);
 
         return assets;
 
@@ -51,18 +57,25 @@ export async function loadAssets(filters = {}) {
     }
 }
 
-function renderStats(assets) {
-    const totalEl = document.getElementById("total-assets");
-    const inUseEl = document.getElementById("in-use-assets");
-    const maintenanceEl = document.getElementById("maintenance-assets");
+async function renderStats() {
+    try {
+        const stats = await fetchAssetStats();
 
-    const total = assets.length;
-    const inUse = assets.filter(a => a.status === "IN_USE").length;
-    const maintenance = assets.filter(a => a.status === "MAINTENANCE").length;
+        const totalEl = document.getElementById("total-assets");
+        const availableEl = document.getElementById("available-assets");
+        const inUseEl = document.getElementById("in-use-assets");
+        const maintenanceEl = document.getElementById("maintenance-assets");
+        const brokenEl = document.getElementById("broken-assets");
 
-    if (totalEl) totalEl.textContent = total;
-    if (inUseEl) inUseEl.textContent = inUse;
-    if (maintenanceEl) maintenanceEl.textContent = maintenance;
+        if (totalEl) totalEl.textContent = stats.total;
+        if (availableEl) availableEl.textContent = stats.available;
+        if (inUseEl) inUseEl.textContent = stats.inUse;
+        if (maintenanceEl) maintenanceEl.textContent = stats.maintenance;
+        if (brokenEl) brokenEl.textContent = stats.broken;
+
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 function renderAssets(container, assets, rooms) {
@@ -267,5 +280,41 @@ function renderAssets(container, assets, rooms) {
 
     cancelBtn.onclick = () => {
         document.getElementById("quick-assign-modal").classList.add("hidden");
+    };
+}
+
+function renderPagination(pageData, filters) {
+    const pageInfo = document.getElementById("page-info");
+    const prevBtn = document.getElementById("prev-page");
+    const nextBtn = document.getElementById("next-page");
+
+    if (!pageInfo || !prevBtn || !nextBtn) return;
+
+    const currentPage = pageData.number ?? 0;
+    const totalPages = pageData.totalPages ?? 1;
+
+    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+
+    prevBtn.onclick = async () => {
+        if (currentPage > 0) {
+            await loadAssets({
+                ...filters,
+                page: currentPage - 1,
+                size: filters.size ?? 6
+            });
+        }
+    };
+
+    nextBtn.onclick = async () => {
+        if (currentPage < totalPages - 1) {
+            await loadAssets({
+                ...filters,
+                page: currentPage + 1,
+                size: filters.size ?? 6
+            });
+        }
     };
 }
