@@ -4,6 +4,8 @@ import lombok.Getter;
 import pl.school.assetmanagement.domain.model.enums.AssetStatus;
 import pl.school.assetmanagement.domain.model.enums.AssetType;
 
+import java.util.List;
+
 @Getter
 public class Asset {
 
@@ -126,6 +128,7 @@ public class Asset {
         this.roomId = storageId;
         this.status = AssetStatus.AVAILABLE;
     }
+
 }
 
 

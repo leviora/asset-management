@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupAssignment();
     loadTypes();
     setupFilters();
+    loadActivityLogs();
+
 });
 
 
@@ -175,6 +177,7 @@ async function handleAssignment() {
         document.getElementById("assignment-modal").classList.add("hidden");
 
         await loadAssets();
+        await loadActivityLogs();
 
     } catch (e) {
         showToast("Assign failed ❌", true);
@@ -221,5 +224,32 @@ function setupFilters() {
         typeFilter.value = "";
 
         await loadAssets();
+    });
+}
+
+
+async function loadActivityLogs() {
+    const res = await fetch('/api/logs/today');
+    const logs = await res.json();
+
+    const container = document.getElementById('activity-container');
+    container.innerHTML = '';
+
+    logs.reverse().forEach(log => {
+        const div = document.createElement('div');
+
+        div.className = "flex justify-between border-b border-white/5 pb-2";
+
+        div.innerHTML = `
+            <div>
+                <span class="text-orange-400">${log.type}</span>
+                <span class="text-gray-400 ml-2">${log.assetId}</span>
+            </div>
+            <div class="text-gray-500 text-xs">
+                ${new Date(log.timestamp).toLocaleTimeString()}
+            </div>
+        `;
+
+        container.appendChild(div);
     });
 }
