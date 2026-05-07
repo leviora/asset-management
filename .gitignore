@@ -54,7 +54,7 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-out/
+/out/
 !/src/main/java/pl/school/assetmanagement/application/port/out
 
 # mpeltonen/sbt-idea plugin
