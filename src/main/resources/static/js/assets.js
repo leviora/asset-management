@@ -11,6 +11,7 @@ import {
     fetchAssetStats,
 } from "./api.js";
 import { loadRooms } from "./rooms.js";
+import { loadActivityLogs } from "./main.js";
 
 
 let selectedAssetId = null;
@@ -273,6 +274,7 @@ function renderAssets(container, assets, rooms) {
             document.getElementById("quick-assign-modal").classList.add("hidden");
             showToast("Assigned");
             await loadAssets();
+            await loadActivityLogs();
         } catch {
             showToast("Failed", "error");
         }

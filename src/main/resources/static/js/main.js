@@ -228,7 +228,7 @@ function setupFilters() {
 }
 
 
-async function loadActivityLogs() {
+export async function loadActivityLogs() {
     const res = await fetch('/api/logs/today');
     const logs = await res.json();
 
