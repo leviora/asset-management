@@ -1,3 +1,5 @@
+// modal.js
+
 import { fetchAssetModels, createAsset } from "./api.js";
 import { showToast } from "./ui.js";
 import { loadAssets } from "./assets.js";

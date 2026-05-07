@@ -9,6 +9,8 @@ public record ActivityLogResponse(
         UUID id,
         ActivityType type,
         UUID assetId,
+        String assetType,
+        String serialNumber,
         UUID fromRoomId,
         UUID toRoomId,
         String performedBy,

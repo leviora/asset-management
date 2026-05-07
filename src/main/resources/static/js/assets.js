@@ -3,16 +3,16 @@
 import { fetchAssets } from "./api.js";
 import { showToast } from "./ui.js";
 import {
-    markAssetBroken,
-    sendAssetToMaintenance,
-    removeAssetFromRoom,
     assignAssetToRoom,
-    markAssetAvailable,
     fetchAssetStats,
 } from "./api.js";
-import { loadRooms } from "./rooms.js";
-import { loadActivityLogs } from "./main.js";
 
+import { loadRooms } from "./rooms.js";
+import { executeAssetAction } from "./asset-actions.js";
+import { assetActionMap } from "./asset-action-map.js";
+import { renderStats } from "./asset-stats.js";
+import { renderPagination } from "./asset-pagination.js";
+import { renderAssetCard } from "./asset-card.js";
 
 let selectedAssetId = null;
 
@@ -24,299 +24,188 @@ const baseBtnClass = `
 `;
 
 export async function getAssetsData() {
+
     try {
+
         return await fetchAssets();
+
     } catch (err) {
+
         console.error(err);
+
         return [];
     }
 }
 
 export async function loadAssets(filters = {}) {
+
     try {
+
         const pageData = await fetchAssets(filters);
 
         const assets = pageData.content || [];
 
-        await renderStats();
+        const stats = await fetchAssetStats();
+
+        renderStats(stats);
 
         const rooms = await loadRooms();
 
         const container = document.getElementById("assets-container");
+
         if (container) {
+
             renderAssets(container, assets, rooms);
         }
 
-        renderPagination(pageData, filters);
+        renderPagination(pageData);
 
         return assets;
 
     } catch (err) {
+
         console.error(err);
+
         showToast("Failed to load assets ❌", true);
+
         return [];
     }
 }
 
-async function renderStats() {
-    try {
-        const stats = await fetchAssetStats();
-
-        const totalEl = document.getElementById("total-assets");
-        const availableEl = document.getElementById("available-assets");
-        const inUseEl = document.getElementById("in-use-assets");
-        const maintenanceEl = document.getElementById("maintenance-assets");
-        const brokenEl = document.getElementById("broken-assets");
-
-        if (totalEl) totalEl.textContent = stats.total;
-        if (availableEl) availableEl.textContent = stats.available;
-        if (inUseEl) inUseEl.textContent = stats.inUse;
-        if (maintenanceEl) maintenanceEl.textContent = stats.maintenance;
-        if (brokenEl) brokenEl.textContent = stats.broken;
-
-    } catch (err) {
-        console.error(err);
-    }
-}
-
 function renderAssets(container, assets, rooms) {
+
     container.innerHTML = "";
 
     if (!assets.length) {
-        container.innerHTML = `<p class="text-gray-400">No assets</p>`;
+
+        container.innerHTML = `
+            <p class="text-gray-400">
+                No assets
+            </p>
+        `;
+
         return;
     }
 
     assets.forEach(asset => {
-        const card = document.createElement("div");
-        const room = rooms.find(r => r.roomId === asset.roomId);
 
-        const statusStyle = `
-            px-3 py-1 text-xs font-semibold rounded-full
-            bg-orange-500/10 text-orange-300 border border-orange-500/20
-        `;
+        const room = rooms.find(
+            r => r.roomId === asset.roomId
+        );
 
-        const userBadge = asset.status === "IN_USE"
-            ? `
-            <div class="flex items-center gap-2 text-xs text-gray-400">
-                <div class="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center text-[10px]">
-                    U
-                </div>
-                <span>Assigned user</span>
-            </div>
-        `
-            : "";
-
-        // --- ACTIONS ---
-        let actions = "";
-
-        if (asset.status === "AVAILABLE") {
-            actions += `
-                <button data-action="assign-room" data-id="${asset.id}" class="${baseBtnClass}">
-                    Assign
-                </button>
-                <button data-action="maintenance" data-id="${asset.id}" class="${baseBtnClass}">
-                    Maintenance
-                </button>
-            `;
-        }
-
-        if (asset.status === "IN_USE") {
-            actions += `
-                <button data-action="assign-room" data-id="${asset.id}" class="${baseBtnClass}">
-                    Change Room
-                </button>
-                <button data-action="remove-room" data-id="${asset.id}" class="${baseBtnClass}">
-                    Unassign
-                </button>
-                <button data-action="maintenance" data-id="${asset.id}" class="${baseBtnClass}">
-                    Maintenance
-                </button>
-            `;
-        }
-
-        if (asset.status === "MAINTENANCE") {
-            actions += `
-                <button data-action="available" data-id="${asset.id}" class="${baseBtnClass}">
-                    Available
-                </button>
-                <button data-action="broken" data-id="${asset.id}" class="${baseBtnClass}">
-                    Broken
-                </button>
-            `;
-        }
-
-        card.className = `
-            p-6 rounded-2xl
-            bg-gradient-to-br from-[#111827] to-[#1f2937]
-            border border-white/5
-            hover:border-orange-500/30
-            hover:shadow-[0_0_30px_rgba(249,115,22,0.15)]
-            transition-all duration-300
-            space-y-4
-        `;
-
-        card.innerHTML = `
-            <div class="flex justify-between items-start">
-                <span class="${statusStyle}">
-                    ${asset.status.replace("_", " ")}
-                </span>
-
-                <span class="material-symbols-outlined text-gray-500">
-                    inventory_2
-                </span>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-bold">${asset.assetType}</h3>
-                <p class="text-xs text-gray-400 mt-1">
-                    SN: ${asset.serialNumber || "N/A"}
-                </p>
-            </div>
-
-            <div class="text-xs text-gray-500 flex">
-                Room: ${room?.number || "Storage"}
-            </div>
-
-            ${userBadge}
-
-            <div class="flex flex-wrap gap-2 pt-2">
-                ${actions}
-            </div>
-        `;
+        const card = renderAssetCard(
+            asset,
+            room,
+            baseBtnClass
+        );
 
         container.appendChild(card);
     });
 
-    // --- ACTION HANDLERS ---
+    bindAssetActions(container, rooms);
+}
 
-    container.querySelectorAll('[data-action="broken"]').forEach(btn => {
-        btn.onclick = async () => {
-            try {
-                await markAssetBroken(btn.dataset.id);
-                showToast("Asset marked as broken");
-                await loadAssets();
-            } catch {
-                showToast("Failed", "error");
-            }
-        };
-    });
+function bindAssetActions(container, rooms) {
 
-    container.querySelectorAll('[data-action="maintenance"]').forEach(btn => {
-        btn.onclick = async () => {
-            try {
-                await sendAssetToMaintenance(btn.dataset.id);
-                showToast("Sent to maintenance");
-                await loadAssets();
-            } catch {
-                showToast("Failed", "error");
-            }
-        };
-    });
+    container.onclick = async (e) => {
 
-    container.querySelectorAll('[data-action="remove-room"]').forEach(btn => {
-        btn.onclick = async () => {
-            try {
-                await removeAssetFromRoom(btn.dataset.id);
-                showToast("Unassigned");
-                await loadAssets();
-            } catch {
-                showToast("Failed", "error");
-            }
-        };
-    });
+        const button = e.target.closest("[data-action]");
 
-    container.querySelectorAll('[data-action="assign-room"]').forEach(btn => {
-        btn.onclick = () => {
-            selectedAssetId = btn.dataset.id;
+        if (!button) return;
 
-            const modal = document.getElementById("quick-assign-modal");
-            const select = document.getElementById("quick-room-select");
+        const action = button.dataset.action;
 
-            select.innerHTML = `<option value="">Select room</option>`;
+        const assetId = button.dataset.id;
+
+        const config = assetActionMap[action];
+
+        if (config) {
+
+            await executeAssetAction(
+                () => config.handler(assetId),
+                config.successMessage
+            );
+
+            return;
+        }
+
+        if (action === "assign-room") {
+
+            selectedAssetId = assetId;
+
+            const modal =
+                document.getElementById(
+                    "quick-assign-modal"
+                );
+
+            const select =
+                document.getElementById(
+                    "quick-room-select"
+                );
+
+            select.innerHTML = `
+                <option value="">
+                    Select room
+                </option>
+            `;
 
             rooms.forEach(r => {
-                const option = document.createElement("option");
+
+                const option =
+                    document.createElement("option");
+
                 option.value = r.roomId;
+
                 option.textContent = r.number;
+
                 select.appendChild(option);
             });
 
             modal.classList.remove("hidden");
-        };
-    });
+        }
+    };
 
-    container.querySelectorAll('[data-action="available"]').forEach(btn => {
-        btn.onclick = async () => {
-            try {
-                await markAssetAvailable(btn.dataset.id);
-                showToast("Now available");
-                await loadAssets();
-            } catch {
-                showToast("Failed", "error");
-            }
-        };
-    });
+    const confirmBtn =
+        document.getElementById(
+            "quick-assign-confirm"
+        );
 
-    const confirmBtn = document.getElementById("quick-assign-confirm");
-    const cancelBtn = document.getElementById("quick-assign-cancel");
+    const cancelBtn =
+        document.getElementById(
+            "quick-assign-cancel"
+        );
 
     confirmBtn.onclick = async () => {
-        const roomId = document.getElementById("quick-room-select").value;
+
+        const roomId =
+            document.getElementById(
+                "quick-room-select"
+            ).value;
 
         if (!roomId) {
+
             showToast("Select room", "warning");
+
             return;
         }
 
-        try {
-            await assignAssetToRoom(selectedAssetId, roomId);
-            document.getElementById("quick-assign-modal").classList.add("hidden");
-            showToast("Assigned");
-            await loadAssets();
-            await loadActivityLogs();
-        } catch {
-            showToast("Failed", "error");
-        }
+        await executeAssetAction(
+            () => assignAssetToRoom(
+                selectedAssetId,
+                roomId
+            ),
+            "Assigned"
+        );
+
+        document.getElementById(
+            "quick-assign-modal"
+        ).classList.add("hidden");
     };
 
     cancelBtn.onclick = () => {
-        document.getElementById("quick-assign-modal").classList.add("hidden");
-    };
-}
 
-function renderPagination(pageData, filters) {
-    const pageInfo = document.getElementById("page-info");
-    const prevBtn = document.getElementById("prev-page");
-    const nextBtn = document.getElementById("next-page");
-
-    if (!pageInfo || !prevBtn || !nextBtn) return;
-
-    const currentPage = pageData.number ?? 0;
-    const totalPages = pageData.totalPages ?? 1;
-
-    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
-
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage >= totalPages - 1;
-
-    prevBtn.onclick = async () => {
-        if (currentPage > 0) {
-            await loadAssets({
-                ...filters,
-                page: currentPage - 1,
-                size: filters.size ?? 6
-            });
-        }
-    };
-
-    nextBtn.onclick = async () => {
-        if (currentPage < totalPages - 1) {
-            await loadAssets({
-                ...filters,
-                page: currentPage + 1,
-                size: filters.size ?? 6
-            });
-        }
+        document.getElementById(
+            "quick-assign-modal"
+        ).classList.add("hidden");
     };
 }

@@ -4,19 +4,18 @@ import { loadAssets, getAssetsData } from "./assets.js";
 import { fetchAssetModels, createAsset, ASSET_TYPES } from "./api.js";
 import { showToast } from "./ui.js";
 import { loadRooms } from "./rooms.js";
+import { refreshActivityLogs } from "./activity.js";
+import { refreshDashboard } from "./dashboard.js";
+import { dashboardState } from "./state.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadAssets({
-        page: 0,
-        size: 6,
-        sort: "assetType,asc"
-    });
+    await refreshDashboard();
     await loadModels();
+
     setupModal();
     setupAssignment();
     loadTypes();
     setupFilters();
-    loadActivityLogs();
 
 });
 
@@ -103,7 +102,7 @@ async function handleSubmit() {
 
         document.getElementById("asset-modal").classList.add("hidden");
 
-        await loadAssets();
+        await refreshDashboard();
 
     } catch (e) {
         showToast("Failed to create asset ❌", true);
@@ -176,8 +175,7 @@ async function handleAssignment() {
 
         document.getElementById("assignment-modal").classList.add("hidden");
 
-        await loadAssets();
-        await loadActivityLogs();
+        await refreshDashboard();
 
     } catch (e) {
         showToast("Assign failed ❌", true);
@@ -198,11 +196,19 @@ function setupFilters() {
     });
 
     async function applyFilters() {
-        await loadAssets({
-            serialNumber: searchInput.value.trim(),
-            status: statusFilter.value,
-            assetType: typeFilter.value
-        });
+
+        dashboardState.filters.serialNumber =
+            searchInput.value.trim();
+
+        dashboardState.filters.status =
+            statusFilter.value;
+
+        dashboardState.filters.assetType =
+            typeFilter.value;
+
+        dashboardState.page = 0;
+
+        await refreshDashboard();
     }
 
     let timeout;
@@ -219,37 +225,17 @@ function setupFilters() {
     typeFilter.addEventListener("change", applyFilters);
 
     resetBtn.addEventListener("click", async () => {
+
         searchInput.value = "";
         statusFilter.value = "";
         typeFilter.value = "";
 
-        await loadAssets();
-    });
-}
+        dashboardState.filters.serialNumber = "";
+        dashboardState.filters.status = "";
+        dashboardState.filters.assetType = "";
 
+        dashboardState.page = 0;
 
-export async function loadActivityLogs() {
-    const res = await fetch('/api/logs/today');
-    const logs = await res.json();
-
-    const container = document.getElementById('activity-container');
-    container.innerHTML = '';
-
-    logs.reverse().forEach(log => {
-        const div = document.createElement('div');
-
-        div.className = "flex justify-between border-b border-white/5 pb-2";
-
-        div.innerHTML = `
-            <div>
-                <span class="text-orange-400">${log.type}</span>
-                <span class="text-gray-400 ml-2">${log.assetId}</span>
-            </div>
-            <div class="text-gray-500 text-xs">
-                ${new Date(log.timestamp).toLocaleTimeString()}
-            </div>
-        `;
-
-        container.appendChild(div);
+        await refreshDashboard();
     });
 }
