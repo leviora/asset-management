@@ -38,6 +38,7 @@ public class MarkAssetAvailableService implements MarkAssetAvailable {
                         ActivityType.MARKED_AS_AVAILABLE,
                         assetId,
                         null,
+                        null,
                         null
                 )
         );

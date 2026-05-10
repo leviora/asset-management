@@ -7,6 +7,7 @@ import pl.school.assetmanagement.domain.model.enums.ActivityType;
 public record AssetActivityEvent(
         ActivityType type,
         AssetId assetId,
+        String serialNumber,
         RoomId fromRoom,
         RoomId toRoom
 ) {

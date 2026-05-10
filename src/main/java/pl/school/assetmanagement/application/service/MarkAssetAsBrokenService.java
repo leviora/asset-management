@@ -7,7 +7,6 @@ import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.port.in.MarkAssetAsBroken;
 import pl.school.assetmanagement.application.port.out.AssetRepository;
 import pl.school.assetmanagement.application.port.out.RoomRepository;
-import pl.school.assetmanagement.application.service.email.EmailService;
 import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
 import pl.school.assetmanagement.domain.model.Room;
@@ -20,7 +19,7 @@ public class MarkAssetAsBrokenService implements MarkAssetAsBroken {
     private final AssetRepository assetRepository;
     private final RoomRepository roomRepository;
     private final ApplicationEventPublisher eventPublisher;
-    private final EmailService emailService;
+
 
     @Override
     public void mark(AssetId assetId) {
@@ -35,18 +34,11 @@ public class MarkAssetAsBrokenService implements MarkAssetAsBroken {
 
         assetRepository.save(asset);
 
-        try {
-            emailService.sendBrokenAssetNotification(
-                    asset.getSerialNumber()
-            );
-        } catch (Exception e) {
-            System.err.println("Failed to send email: " + e.getMessage());
-        }
-
         eventPublisher.publishEvent(
                 new AssetActivityEvent(
                         ActivityType.MARKED_AS_BROKEN,
                         assetId,
+                        asset.getSerialNumber(),
                         null,
                         null
                 )

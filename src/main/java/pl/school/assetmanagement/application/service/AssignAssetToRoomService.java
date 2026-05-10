@@ -39,6 +39,7 @@ public class AssignAssetToRoomService implements AssignAssetToRoom {
                 new AssetActivityEvent(
                         ActivityType.ASSIGNED_TO_ROOM,
                         assetId,
+                        asset.getSerialNumber(),
                         previousRoom,
                         roomId
                 )

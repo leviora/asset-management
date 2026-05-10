@@ -38,6 +38,7 @@ public class RemoveAssetFromRoomService implements RemoveAssetFromRoom {
                         ActivityType.REMOVED_FROM_ROOM,
                         assetId,
                         null,
+                        null,
                         null
                 )
         );

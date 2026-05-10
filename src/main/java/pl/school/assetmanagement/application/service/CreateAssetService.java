@@ -48,6 +48,7 @@ public class CreateAssetService implements CreateAsset {
                 new AssetActivityEvent(
                         ActivityType.CREATED,
                         saved.getId(),
+                        saved.getSerialNumber(),
                         null,
                         storage.getRoomId()
                 )

@@ -38,6 +38,7 @@ public class SendAssetToMaintenanceService implements SendAssetToMaintenance {
                         ActivityType.SENT_TO_MAINTENANCE,
                         assetId,
                         null,
+                        null,
                         null
                 )
         );
