@@ -1,9 +1,10 @@
 package pl.school.assetmanagement.application.service.email;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,25 +12,55 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     private final JavaMailSender mailSender;
+    private final EmailTemplateService templateService;
 
     @Value("${spring.mail.username}")
     private String from;
 
-    public void sendBrokenAssetNotification(String assetSerialNumber) {
-        SimpleMailMessage message = new SimpleMailMessage();
+    public void sendBrokenAssetNotification(
+            String assetSerialNumber
+    ) {
 
-        message.setFrom(from);
+        try {
 
-        message.setTo(from);
+            String html = templateService.loadTemplate(
+                    "broken-asset.html"
+            );
 
-        message.setSubject("Broken asset detected");
+            html = templateService.replacePlaceholder(
+                    html,
+                    "serialNumber",
+                    assetSerialNumber
+            );
 
-        message.setText(
-                "Asset with serial number "
-                        + assetSerialNumber
-                        + " has been marked as BROKEN."
-        );
+            MimeMessage message =
+                    mailSender.createMimeMessage();
 
-        mailSender.send(message);
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(
+                            message,
+                            true,
+                            "UTF-8"
+                    );
+
+            helper.setFrom(from);
+
+            helper.setTo(from);
+
+            helper.setSubject(
+                    "Broken asset detected"
+            );
+
+            helper.setText(html, true);
+
+            mailSender.send(message);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Failed to send email",
+                    e
+            );
+        }
     }
 }
