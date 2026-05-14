@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.school.assetmanagement.adapter.in.rest.room.dto.RoomResponse;
-import pl.school.assetmanagement.application.port.out.RoomRepository;
+import pl.school.assetmanagement.application.port.in.GetRooms;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoomController {
 
-    private final RoomRepository roomRepository;
+    private final GetRooms getRooms;
 
     @GetMapping
     public List<RoomResponse> getAll() {
-        return roomRepository.findAll()
+        return getRooms.getAll()
                 .stream()
                 .map(r -> new RoomResponse(
                         r.getRoomId().value(),
