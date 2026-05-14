@@ -1,15 +1,16 @@
-package pl.school.assetmanagement.application.service.email;
+package pl.school.assetmanagement.adapter.out.mail;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import pl.school.assetmanagement.application.port.out.EmailSender;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class EmailService {
+public class JavaMailEmailSender implements EmailSender {
 
     private final JavaMailSender mailSender;
     private final EmailTemplateService templateService;
@@ -17,6 +18,7 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Override
     public void sendBrokenAssetNotification(
             String assetSerialNumber
     ) {

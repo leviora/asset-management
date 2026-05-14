@@ -1,4 +1,4 @@
-package pl.school.assetmanagement.application.service.email;
+package pl.school.assetmanagement.adapter.out.mail;
 
 import lombok.SneakyThrows;
 import org.springframework.core.io.ClassPathResource;

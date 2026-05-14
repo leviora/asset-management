@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
-import pl.school.assetmanagement.application.service.email.EmailService;
+import pl.school.assetmanagement.application.port.out.EmailSender;
 import pl.school.assetmanagement.domain.model.enums.ActivityType;
 
 @Slf4j
@@ -14,7 +14,7 @@ import pl.school.assetmanagement.domain.model.enums.ActivityType;
 @RequiredArgsConstructor
 public class AssetNotificationListener {
 
-    private final EmailService emailService;
+    private final EmailSender emailSender;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAssetActivity(AssetActivityEvent event) {
@@ -23,7 +23,7 @@ public class AssetNotificationListener {
 
             try {
 
-                emailService.sendBrokenAssetNotification(
+                emailSender.sendBrokenAssetNotification(
                         event.serialNumber()
                 );
 
