@@ -2,6 +2,7 @@ package pl.school.assetmanagement.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.port.in.CreateAsset;
 import pl.school.assetmanagement.application.port.out.AssetModelRepository;
@@ -17,6 +18,7 @@ import org.springframework.context.ApplicationEventPublisher;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CreateAssetService implements CreateAsset {
 
     private final AssetRepository assetRepository;

@@ -3,6 +3,7 @@ package pl.school.assetmanagement.application.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.port.in.AssignAssetToRoom;
 import pl.school.assetmanagement.application.port.out.AssetRepository;
@@ -14,6 +15,7 @@ import pl.school.assetmanagement.domain.model.enums.ActivityType;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AssignAssetToRoomService implements AssignAssetToRoom {
 
     private final AssetRepository assetRepository;
