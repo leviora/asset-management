@@ -10,6 +10,7 @@ public record CreateAssetRequest(
         @NotNull(message = "assetModelId is required")
         UUID assetModelId,
         String serialNumber,
+        @NotNull(message = "assetType is required")
         AssetType assetType
 
 ) {

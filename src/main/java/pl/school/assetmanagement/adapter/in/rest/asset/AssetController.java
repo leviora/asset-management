@@ -1,5 +1,6 @@
 package pl.school.assetmanagement.adapter.in.rest.asset;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,7 +54,7 @@ public class AssetController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> create(@RequestBody CreateAssetRequest request) {
+    public ResponseEntity<UUID> create(@RequestBody @Valid CreateAssetRequest request) {
 
         AssetId id = createAsset.create(
                 new AssetModelId(request.assetModelId()),
