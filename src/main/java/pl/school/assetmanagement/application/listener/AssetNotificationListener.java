@@ -2,8 +2,9 @@ package pl.school.assetmanagement.application.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.service.email.EmailService;
 import pl.school.assetmanagement.domain.model.enums.ActivityType;
@@ -15,7 +16,7 @@ public class AssetNotificationListener {
 
     private final EmailService emailService;
 
-    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAssetActivity(AssetActivityEvent event) {
 
         if (event.type() == ActivityType.MARKED_AS_BROKEN) {
