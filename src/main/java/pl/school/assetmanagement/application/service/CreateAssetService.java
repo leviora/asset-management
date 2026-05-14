@@ -2,9 +2,9 @@ package pl.school.assetmanagement.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.school.assetmanagement.adapter.out.persistence.assetmodel.AssetModelJpaRepository;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.port.in.CreateAsset;
+import pl.school.assetmanagement.application.port.out.AssetModelRepository;
 import pl.school.assetmanagement.application.port.out.AssetRepository;
 import pl.school.assetmanagement.application.port.out.RoomRepository;
 import pl.school.assetmanagement.domain.model.Asset;
@@ -20,7 +20,7 @@ import org.springframework.context.ApplicationEventPublisher;
 public class CreateAssetService implements CreateAsset {
 
     private final AssetRepository assetRepository;
-    private final AssetModelJpaRepository assetModelJpaRepository;
+    private final AssetModelRepository assetModelRepository;
     private final RoomRepository roomRepository;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -28,7 +28,7 @@ public class CreateAssetService implements CreateAsset {
     @Override
     public AssetId create(AssetModelId assetModelId, String serialNumber, AssetType assetType) {
 
-        assetModelJpaRepository.findById(assetModelId.value())
+        assetModelRepository.findById(assetModelId)
                 .orElseThrow(() -> new RuntimeException("Model not found"));
 
         Room storage = roomRepository.findStorageRoom()
