@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.school.assetmanagement.adapter.in.rest.common.PagedResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetStatsResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.CreateAssetRequest;
@@ -36,19 +37,21 @@ public class AssetController {
     private final GetAssetStats getAssetStats;
 
     @GetMapping
-    public ResponseEntity<Page<AssetResponse>> getAll(
+    public ResponseEntity<PagedResponse<AssetResponse>> getAll(
             @RequestParam(required = false) AssetStatus status,
             @RequestParam(required = false) AssetType assetType,
             @RequestParam(required = false) String serialNumber,
             Pageable pageable
     ) {
+        Page<AssetResponse> page = getAllAssets.getAll(
+                status,
+                assetType,
+                serialNumber,
+                pageable
+        ).map(webMapper::toResponse);
+
         return ResponseEntity.ok(
-                getAllAssets.getAll(
-                        status,
-                        assetType,
-                        serialNumber,
-                        pageable
-                ).map(webMapper::toResponse)
+                PagedResponse.from(page)
         );
     }
 
