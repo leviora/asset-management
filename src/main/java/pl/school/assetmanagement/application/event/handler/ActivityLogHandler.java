@@ -8,6 +8,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import pl.school.assetmanagement.application.event.AssetActivityEvent;
 import pl.school.assetmanagement.application.port.out.ActivityLogRepository;
+import pl.school.assetmanagement.application.port.out.CurrentUserProvider;
 import pl.school.assetmanagement.domain.model.ActivityLog;
 
 @Component
@@ -15,6 +16,7 @@ import pl.school.assetmanagement.domain.model.ActivityLog;
 public class ActivityLogHandler {
 
     private final ActivityLogRepository repository;
+    private final CurrentUserProvider currentUserProvider;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -25,7 +27,7 @@ public class ActivityLogHandler {
                 event.assetId(),
                 event.fromRoom(),
                 event.toRoom(),
-                "SYSTEM"
+                currentUserProvider.currentUser()
         );
 
         repository.save(log);
