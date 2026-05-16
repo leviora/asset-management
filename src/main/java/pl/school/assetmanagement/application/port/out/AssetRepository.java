@@ -1,7 +1,7 @@
 package pl.school.assetmanagement.application.port.out;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import pl.school.assetmanagement.application.pagination.AppPageRequest;
+import pl.school.assetmanagement.application.pagination.PageResult;
 import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
 import pl.school.assetmanagement.domain.model.enums.AssetStatus;
@@ -18,10 +18,10 @@ public interface AssetRepository {
 
     List<Asset> findAll();
 
-    Page<Asset> findByFilters(
+    PageResult<Asset> findByFilters(
             AssetStatus status,
             AssetType assetType,
             String serialNumber,
-            Pageable pageable
+            AppPageRequest pageRequest
     );
 }

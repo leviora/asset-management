@@ -1,14 +1,17 @@
 package pl.school.assetmanagement.adapter.in.rest.asset;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.school.assetmanagement.adapter.in.rest.common.PagedResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.AssetStatsResponse;
 import pl.school.assetmanagement.adapter.in.rest.asset.dto.CreateAssetRequest;
+import pl.school.assetmanagement.adapter.in.rest.common.PagedResponse;
+import pl.school.assetmanagement.application.pagination.AppPageRequest;
+import pl.school.assetmanagement.application.pagination.AppSortDirection;
+import pl.school.assetmanagement.application.pagination.AppSortOrder;
+import pl.school.assetmanagement.application.pagination.PageResult;
 import pl.school.assetmanagement.application.port.in.*;
 import pl.school.assetmanagement.domain.model.Asset;
 import pl.school.assetmanagement.domain.model.AssetId;
@@ -17,7 +20,6 @@ import pl.school.assetmanagement.domain.model.RoomId;
 import pl.school.assetmanagement.domain.model.enums.AssetStatus;
 import pl.school.assetmanagement.domain.model.enums.AssetType;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -43,11 +45,11 @@ public class AssetController {
             @RequestParam(required = false) String serialNumber,
             Pageable pageable
     ) {
-        Page<AssetResponse> page = getAllAssets.getAll(
+        PageResult<AssetResponse> page = getAllAssets.getAll(
                 status,
                 assetType,
                 serialNumber,
-                pageable
+                toAppPageRequest(pageable)
         ).map(webMapper::toResponse);
 
         return ResponseEntity.ok(
@@ -114,5 +116,22 @@ public class AssetController {
     @GetMapping("/stats")
     public ResponseEntity<AssetStatsResponse> getStats() {
         return ResponseEntity.ok(getAssetStats.getStats());
+    }
+
+    private AppPageRequest toAppPageRequest(Pageable pageable) {
+
+        return new AppPageRequest(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSort()
+                        .stream()
+                        .map(order -> new AppSortOrder(
+                                order.getProperty(),
+                                order.isDescending()
+                                        ? AppSortDirection.DESC
+                                        : AppSortDirection.ASC
+                        ))
+                        .toList()
+        );
     }
 }
